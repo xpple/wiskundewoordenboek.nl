@@ -1,0 +1,31 @@
+<?php
+
+use App\Controllers\Controller;
+use App\Controllers\WordController;
+
+/* @var WordController $this */
+?>
+<!DOCTYPE html>
+<html lang="nl">
+<?php
+$title = $this->wordModel->wordCapitalised . " | Wiskunde Woordenboek";
+require Controller::getTemplatePath("head");
+?>
+<body>
+<?php
+require Controller::getTemplatePath("header");
+?>
+<main>
+    <h2><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h2>
+    <p>
+        <?= htmlspecialchars($this->wordModel->meaning) ?>
+    </p>
+</main>
+<aside>
+    <h2>Recent toegevoegd</h2>
+</aside>
+<?php
+require Controller::getTemplatePath("footer");
+?>
+</body>
+</html>

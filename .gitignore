@@ -1,0 +1,11 @@
+# idea
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# run configuration
+.run/
+
+# secret
+/app/login-data.php

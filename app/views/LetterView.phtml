@@ -1,0 +1,36 @@
+<?php
+
+use App\Controllers\Controller;
+use App\Controllers\LetterController;
+
+/* @var LetterController $this */
+?>
+<!DOCTYPE html>
+<html lang="nl">
+<?php
+$title = "Wiskunde Woordenboek";
+require Controller::getTemplatePath("head");
+?>
+<body>
+<?php
+require Controller::getTemplatePath("header");
+?>
+<main>
+    <main>
+        <h2><?= htmlspecialchars($this->letter) ?></h2>
+        <ul>
+<?php
+            foreach($this->wordModels as $wordModel) {
+                echo <<<HTML
+            <li><a href="/woord/$wordModel->wordDirectory">$wordModel->wordCapitalised</a></li>\n
+HTML;
+            }
+            ?>
+        </ul>
+    </main>
+</main>
+<?php
+require Controller::getTemplatePath("footer");
+?>
+</body>
+</html>
