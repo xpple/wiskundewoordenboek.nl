@@ -16,18 +16,16 @@ require Controller::getTemplatePath("head");
 require Controller::getTemplatePath("header");
 ?>
 <main>
-    <main>
-        <h2><?= "Zoekresultaten voor \"" . htmlspecialchars($this->query) . "\":" ?></h2>
-        <ul>
-            <?php
-            foreach($this->wordModels as $wordModel) {
-                echo <<<HTML
-            <li><a href="/woord/$wordModel->wordDirectory">$wordModel->wordCapitalised</a></li>\n
+    <h2><?= "Zoekresultaten voor \"" . htmlspecialchars($this->query) . "\":" ?></h2>
+    <ul>
+<?php
+        foreach($this->wordModels as $wordModel) {
+            echo <<<HTML
+        <li><a href="/woord/$wordModel->wordDirectory">$wordModel->wordCapitalised</a></li>\n
 HTML;
-            }
-            ?>
-        </ul>
-    </main>
+        }
+        ?>
+    </ul>
 </main>
 <?php
 require Controller::getTemplatePath("footer");
