@@ -20,8 +20,8 @@ class WordController extends SuccessController {
                 break;
             case 1:
                 $word = array_shift($path);
-                $databaseHelper = new DatabaseHelper();
                 try {
+                    $databaseHelper = new DatabaseHelper();
                     $this->wordModel = $databaseHelper->getWord($word);
                 } catch (DatabaseException $e) {
                    throw new HttpException($e->getMessage(), 500);

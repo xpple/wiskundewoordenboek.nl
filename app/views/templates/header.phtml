@@ -1,5 +1,11 @@
 <header id="header">
-    <h1>Wiskunde Woordenboek</h1>
+    <div id="banner">
+        <h1>Wiskunde Woordenboek</h1>
+        <form id="search" action="/zoek" method="post">
+            <input id="search-input" type="text" name="query">
+            <label id="search-label" for="search-input"><img src="/assets/img/search.svg" alt="Search icon"></label>
+        </form>
+    </div>
     <nav id="nav">
         <ul>
 <?php

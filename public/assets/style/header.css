@@ -1,0 +1,96 @@
+#header {
+    width: 100vw;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 10px;
+
+    background-color: aquamarine;
+}
+
+#banner {
+    height: 6rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 0.5em;
+}
+
+#banner > h1 {
+    width: min-content;
+}
+
+#search {
+    height: 50%;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 5px;
+    border: white 2px solid;
+}
+
+#search-input {
+    width: 0;
+    height: 100%;
+
+    background-color: transparent;
+    color: dodgerblue;
+    font-size: 1.25em;
+
+    border: none;
+}
+
+#search-input:focus {
+    width: 100%;
+    outline: inherit;
+}
+
+#search-label {
+    height: 100%;
+}
+
+#search-label:hover {
+    cursor: pointer;
+}
+
+#search-label > img {
+    height: 100%;
+}
+
+#nav {
+    width: fit-content;
+    max-width: 80%;
+    margin: auto;
+}
+
+#nav > ul {
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+
+    overflow-x: auto;
+
+    font-size: 1.5em;
+    color: white;
+}
+
+#nav > ul > li {
+    min-width: 40px;
+
+    border-radius: 5px;
+    border: darkblue 3px solid;
+
+    background-color: dodgerblue;
+
+    list-style-type: none;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+#nav > ul > li > :is(a, a:link, a:visited, a:hover, a:active) {
+    color: white;
+    text-decoration: none;
+}
