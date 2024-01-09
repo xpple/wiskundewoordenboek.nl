@@ -6,3 +6,13 @@
 
     font-family: "Trebuchet MS", sans-serif;
 }
+
+h1 {
+    margin: 0.67em 0;
+}
+h2 {
+    margin: 0.75em 0;
+}
+h3 {
+    margin: 0.83em 0;
+}

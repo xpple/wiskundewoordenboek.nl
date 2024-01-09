@@ -2,13 +2,18 @@
 
 use App\Controllers\Controller;
 use App\Controllers\LetterController;
+use App\Views\ViewSettings;
 
 /* @var LetterController $this */
+
+$settings = new ViewSettings(
+    title: "$this->letter | Wiskunde Woordenboek",
+    stylesheets: array("templates/header", "letter-view"),
+);
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <?php
-$title = "$this->letter | Wiskunde Woordenboek";
 require Controller::getTemplatePath("head");
 ?>
 <body>

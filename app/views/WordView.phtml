@@ -2,28 +2,53 @@
 
 use App\Controllers\Controller;
 use App\Controllers\WordController;
+use App\Views\ViewSettings;
 
 /* @var WordController $this */
+
+$settings = new ViewSettings(
+    title: $this->wordModel->wordCapitalised . " | Wiskunde Woordenboek",
+    stylesheets: array("templates/header", "word-view"),
+    mathsEnabled: true,
+);
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <?php
-$title = $this->wordModel->wordCapitalised . " | Wiskunde Woordenboek";
 require Controller::getTemplatePath("head");
 ?>
 <body>
 <?php
 require Controller::getTemplatePath("header");
 ?>
-<main>
-    <h2><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h2>
-    <p>
-        <?= htmlspecialchars($this->wordModel->meaning) ?>
-    </p>
-</main>
-<aside>
-    <h2>Recent toegevoegd</h2>
-</aside>
+<div id="container">
+    <main id="main">
+        <div id="title-container">
+            <h2><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h2>
+<?php
+            $formal = ($_GET["betekenis"] ?? null) === "formeel";
+            ?>
+            <form id="meaning-option" method="get">
+                <label for="option-standard">Standaard</label>
+                <input id="option-standard" name="betekenis" value="standaard" type="radio" onchange="this.form.submit()" <?= !$formal ? "checked" : "" ?>>
+                <label for="option-formal">Formeel</label>
+                <input id="option-formal" name="betekenis" value="formeel" type="radio" onchange="this.form.submit()" <?= $formal ? "checked" : "" ?>>
+            </form>
+        </div>
+<?php if (!$formal): ?>
+        <p id="meaning">
+            <?= htmlspecialchars($this->wordModel->meaning) ?>
+        </p>
+<?php else: ?>
+        <p id="meaning">
+            <?= htmlspecialchars($this->wordModel->formalMeaning) ?>
+        </p>
+<?php endif ?>
+    </main>
+    <aside id="recent-toegevoegd">
+        <h2>Recent toegevoegd</h2>
+    </aside>
+</div>
 <?php
 require Controller::getTemplatePath("footer");
 ?>

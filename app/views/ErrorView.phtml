@@ -3,13 +3,18 @@
 use App\Controllers\Controller;
 use App\Controllers\ErrorController;
 use App\Util\HttpException;
+use App\Views\ViewSettings;
 
 /* @var ErrorController $this */
+
+$settings = new ViewSettings(
+    title: $this->cause->getMessage() . " | Wiskunde Woordenboek",
+    stylesheets: array("templates/header", "error-view"),
+);
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <?php
-$title = $this->cause->getMessage() . " | Wiskunde Woordenboek";
 require Controller::getTemplatePath("head");
 ?>
 <body>

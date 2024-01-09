@@ -1,12 +1,36 @@
 <?php
-/* @var string $title */
+
+use App\Views\ViewSettings;
+
+/* @var ViewSettings $settings */
 ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= htmlspecialchars($title) ?></title>
+    <title><?= htmlspecialchars($settings->title) ?></title>
 
-    <link rel="stylesheet" href="/assets/style/reset.css">
-    <link rel="stylesheet" href="/assets/style/header.css">
+    <link rel="stylesheet" href="/assets/style/templates/reset.css">
+<?php
+foreach ($settings->stylesheets as $stylesheet) {
+    echo <<<HTML
+    <link rel="stylesheet" href="/assets/style/$stylesheet.css">\n
+HTML;
+}
+?>
+<?php if ($settings->mathsEnabled): ?>
+    <script type="text/javascript">
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$']]
+            },
+            options: {
+                renderActions: {
+                    addMenu: []
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" async></script>
+<?php endif ?>
 </head>

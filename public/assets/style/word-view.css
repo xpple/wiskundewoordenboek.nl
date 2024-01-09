@@ -1,0 +1,44 @@
+#container {
+    width: 100vw;
+
+    padding-left: 4%;
+    padding-right: 4%;
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 0.5em;
+}
+
+@media only screen and (max-width: 600px) {
+    #container {
+        flex-direction: column;
+    }
+}
+
+#main {
+    flex: 2;
+}
+
+#title-container {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.5em;
+}
+
+#meaning-option {
+    padding: 0.1em;
+
+    border-radius: 5px;
+    border: black 3px solid;
+}
+
+#meaning-option > * {
+    vertical-align: middle;
+}
+
+#recent-toegevoegd {
+    flex: 1;
+}

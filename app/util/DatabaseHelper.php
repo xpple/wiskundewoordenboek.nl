@@ -30,7 +30,7 @@ readonly class DatabaseHelper {
      */
     public function getWord(string $word): ?WordModel {
         $statement = $this->conn->prepare(<<<SQL
-            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning
+            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
             WHERE word_directory = :word
             SQL);
@@ -56,7 +56,7 @@ readonly class DatabaseHelper {
      */
     public function getWordsForLetter(string $letter): array {
         $statement = $this->conn->prepare(<<<SQL
-            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning
+            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
             WHERE word_directory LIKE CONCAT(:letter, '%')
             SQL);
@@ -78,7 +78,7 @@ readonly class DatabaseHelper {
      */
     public function getWordsForQuery(string $query): array {
         $statement = $this->conn->prepare(<<<SQL
-            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning
+            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
             WHERE word_directory LIKE CONCAT('%', :query, '%')
             SQL);
