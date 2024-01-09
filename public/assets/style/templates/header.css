@@ -21,6 +21,11 @@
     width: min-content;
 }
 
+#banner > h1 > :is(a, a:link, a:visited, a:hover, a:active) {
+    color: inherit;
+    text-decoration: none;
+}
+
 #search {
     height: 50%;
 
