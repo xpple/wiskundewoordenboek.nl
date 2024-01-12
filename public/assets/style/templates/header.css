@@ -21,11 +21,6 @@
     width: min-content;
 }
 
-#banner > h1 > :is(a, a:link, a:visited, a:hover, a:active) {
-    color: inherit;
-    text-decoration: none;
-}
-
 #search {
     height: 50%;
 
@@ -68,11 +63,10 @@
     width: fit-content;
     max-width: 80%;
     margin: auto;
+    padding-bottom: 0.5em;
 }
 
-#nav > ul {
-    height: 50px;
-
+#nav > ol {
     display: flex;
     align-items: center;
 
@@ -82,8 +76,8 @@
     color: white;
 }
 
-#nav > ul > li {
-    min-width: 40px;
+#nav > ol > li {
+    min-width: 1.5em;
 
     border-radius: 5px;
     border: darkblue 3px solid;
@@ -93,9 +87,4 @@
     list-style-type: none;
     text-transform: capitalize;
     text-align: center;
-}
-
-#nav > ul > li > :is(a, a:link, a:visited, a:hover, a:active) {
-    color: white;
-    text-decoration: none;
 }

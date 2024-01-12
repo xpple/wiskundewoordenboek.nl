@@ -8,7 +8,7 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: "Zoeken | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "search-view"),
+    stylesheets: array("templates/header", "templates/word-list", "search-view"),
 );
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ require Controller::getTemplatePath("header");
 ?>
 <main>
     <h2><?= "Zoekresultaten voor \"" . htmlspecialchars($this->query) . "\":" ?></h2>
-    <ul>
+    <ol class="word-list">
 <?php
         foreach($this->wordModels as $wordModel) {
             echo <<<HTML
@@ -30,7 +30,7 @@ require Controller::getTemplatePath("header");
 HTML;
         }
         ?>
-    </ul>
+    </ol>
 </main>
 <?php
 require Controller::getTemplatePath("footer");

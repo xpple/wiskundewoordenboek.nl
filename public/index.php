@@ -21,15 +21,16 @@ spl_autoload_register(static function ($class) {
 try {
     $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     if ($requestPath === null or $requestPath === false) {
-        throw new HttpException("Onjuiste URL.", 400);
+        throw HttpException::badRequest();
     }
     /* @var string $requestPath */
-    if (str_ends_with($requestPath, "index.php")) {
-        $requestPath = mb_substr($requestPath, 1, -mb_strlen("index.php"));
-    } else {
-        $requestPath = mb_substr($requestPath, 1);
+    $parts = explode('/', mb_substr($requestPath, 1));
+    $end = end($parts);
+    if ($end === "" or $end === "index.php") {
+        array_pop($parts);
     }
-    $controller = new IndexController(array_filter(explode('/', $requestPath)));
+    $parts = array_map(static fn ($part) => urldecode($part), $parts);
+    $controller = new IndexController($parts);
     $controller->load();
 } catch (HttpException $e) {
     $controller = new ErrorController($e);

@@ -22,11 +22,11 @@ class SearchController extends SuccessController {
         switch (count($path)) {
             case 0:
                 if (array_key_exists("query", $_POST)) {
-                    header("Location: /zoek/{$_POST["query"]}", true, 301);
-                    return;
+                    header("Location: /zoek/" . urlencode($_POST["query"]) . "/", true, 301);
+                    exit;
                 }
-                echo "Zoek voor iets";
-                break;
+                // perhaps implement later
+                throw HttpException::notFound();
             case 1:
                 $this->query = array_shift($path);
                 try {
@@ -38,7 +38,7 @@ class SearchController extends SuccessController {
                 require Controller::getViewPath("SearchView");
                 break;
             default:
-                throw new HttpException("Niet gevonden.", 404);
+                throw HttpException::notFound();
         }
     }
 }

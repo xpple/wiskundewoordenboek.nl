@@ -18,7 +18,7 @@ class IndexController extends SuccessController {
             "over-ons" => new AboutUsController($path),
             "woord" => new WordController($path),
             "zoek" => new SearchController($path),
-            default => throw new HttpException("Niet gevonden.", 404)
+            default => throw HttpException::notFound()
         };
         $controller->load();
     }

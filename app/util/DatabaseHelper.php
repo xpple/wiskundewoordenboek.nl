@@ -21,24 +21,27 @@ readonly class DatabaseHelper {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_NUM);
         } catch (PDOException) {
-            throw new DatabaseException("Er ging iets fout.");
+            throw DatabaseException::unknownError();
         }
     }
 
     /**
+     * @param string $word
+     * @return WordModel|null
+     *
      * @throws DatabaseException
      */
     public function getWord(string $word): ?WordModel {
         $statement = $this->conn->prepare(<<<SQL
             SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
-            WHERE word_directory = :word
+            WHERE word_directory = :word;
             SQL);
         $statement->execute(array("word" => $word));
         $results = $statement->fetchAll();
 
         if ($results === false) {
-            throw new DatabaseException("Er ging iets fout.");
+            throw DatabaseException::unknownError();
         }
 
         if (count($results) !== 1) {
@@ -58,13 +61,14 @@ readonly class DatabaseHelper {
         $statement = $this->conn->prepare(<<<SQL
             SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
-            WHERE word_directory LIKE CONCAT(:letter, '%')
+            WHERE word_capitalised LIKE CONCAT(:letter, '%')
+            ORDER BY word_capitalised ASC;
             SQL);
         $statement->execute(array("letter" => $letter));
         $results = $statement->fetchAll();
 
         if ($results === false) {
-            throw new DatabaseException("Er ging iets fout.");
+            throw DatabaseException::unknownError();
         }
 
         return array_map(static fn($result) => new WordModel(...$result), $results);
@@ -80,13 +84,62 @@ readonly class DatabaseHelper {
         $statement = $this->conn->prepare(<<<SQL
             SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
-            WHERE word_directory LIKE CONCAT('%', :query, '%')
+            WHERE word_capitalised LIKE CONCAT('%', :query, '%')
+            ORDER BY word_capitalised ASC;
             SQL);
         $statement->execute(array("query" => $query));
         $results = $statement->fetchAll();
 
         if ($results === false) {
-            throw new DatabaseException("Er ging iets fout.");
+            throw DatabaseException::unknownError();
+        }
+
+        return array_map(static fn($result) => new WordModel(...$result), $results);
+    }
+
+    /**
+     * @param string $word
+     * @return string|null
+     *
+     * @throws DatabaseException
+     */
+    public function getPrimaryDirectoryForAlias(string $word): ?string {
+        $statement = $this->conn->prepare(<<<SQL
+            SELECT word_directory
+            FROM words
+            INNER JOIN directory_aliases ON words.word_id = directory_aliases.word_id
+            WHERE directory_aliases.directory_alias = :word;
+            SQL);
+        $statement->execute(array("word" => $word));
+        $results = $statement->fetchAll(PDO::FETCH_COLUMN);
+
+        if ($results === false) {
+            throw DatabaseException::unknownError();
+        }
+
+        if (count($results) !== 1) {
+            return null;
+        }
+        return $results[0];
+    }
+
+    /**
+     * @return WordModel[]
+     *
+     * @throws DatabaseException
+     */
+    public function getRecentlyAddedWords(): array {
+        $statement = $this->conn->prepare(<<<SQL
+            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
+            FROM words
+            ORDER BY updated_at DESC
+            LIMIT 5;
+            SQL);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        if ($results === false) {
+            throw DatabaseException::unknownError();
         }
 
         return array_map(static fn($result) => new WordModel(...$result), $results);

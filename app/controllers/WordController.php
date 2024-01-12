@@ -9,30 +9,47 @@ use App\Util\HttpException;
 
 class WordController extends SuccessController {
 
-    private readonly ?WordModel $wordModel;
+    private readonly WordModel $wordModel;
+
+    /**
+     * @var WordModel[] $recentlyAddedWords
+     */
+    private readonly array $recentlyAddedWords;
 
     #[\Override]
     public function load(): void {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
-                echo "Zoek voor een woord";
-                break;
+                // perhaps implement later
+                throw HttpException::notFound();
             case 1:
                 $word = array_shift($path);
                 try {
                     $databaseHelper = new DatabaseHelper();
-                    $this->wordModel = $databaseHelper->getWord($word);
+
+                    $wordModel = $databaseHelper->getWord($word);
+
+                    if ($wordModel === null) {
+                        $word = $databaseHelper->getPrimaryDirectoryForAlias($word);
+
+                        if ($word !== null) {
+                            header("Location: /woord/{$word}/", true, 301);
+                            exit;
+                        }
+
+                        throw HttpException::notFound();
+                    }
+
+                    $this->wordModel = $wordModel;
+                    $this->recentlyAddedWords = $databaseHelper->getRecentlyAddedWords();
+                    require Controller::getViewPath("WordView");
+                    break;
                 } catch (DatabaseException $e) {
                    throw new HttpException($e->getMessage(), 500);
                 }
-                if ($this->wordModel === null) {
-                    throw new HttpException("Niet gevonden.", 404);
-                }
-                require Controller::getViewPath("WordView");
-                break;
             default:
-                throw new HttpException("Niet gevonden.", 404);
+                throw HttpException::notFound();
         }
     }
 }

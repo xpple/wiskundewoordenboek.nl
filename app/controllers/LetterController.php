@@ -20,12 +20,12 @@ class LetterController extends SuccessController {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
-                echo "Zoek voor een letter";
-                break;
+                // perhaps implement later
+                throw HttpException::notFound();
             case 1:
                 $letter = array_shift($path);
                 if (mb_strlen($letter) !== 1) {
-                    throw new HttpException("Niet gevonden.", 404);
+                    throw HttpException::notFound();
                 }
                 $this->letter = $letter;
                 try {
@@ -37,7 +37,7 @@ class LetterController extends SuccessController {
                 require Controller::getViewPath("LetterView");
                 break;
             default:
-                throw new HttpException("Niet gevonden.", 404);
+                throw HttpException::notFound();
         }
     }
 }

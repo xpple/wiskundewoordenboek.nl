@@ -8,7 +8,7 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: "$this->letter | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "letter-view"),
+    stylesheets: array("templates/header", "templates/word-list", "letter-view"),
 );
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ require Controller::getTemplatePath("header");
 ?>
 <main>
     <h2><?= htmlspecialchars($this->letter) ?></h2>
-    <ul>
+    <ol class="word-list">
 <?php
         foreach($this->wordModels as $wordModel) {
             echo <<<HTML
@@ -30,7 +30,7 @@ require Controller::getTemplatePath("header");
 HTML;
         }
         ?>
-    </ul>
+    </ol>
 </main>
 <?php
 require Controller::getTemplatePath("footer");

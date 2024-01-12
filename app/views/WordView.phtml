@@ -8,7 +8,7 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: $this->wordModel->wordCapitalised . " | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "word-view"),
+    stylesheets: array("templates/header", "templates/word-list", "word-view"),
     mathsEnabled: true,
 );
 ?>
@@ -47,6 +47,15 @@ require Controller::getTemplatePath("header");
     </main>
     <aside id="recent-toegevoegd">
         <h2>Recent toegevoegd</h2>
+        <ol class="word-list">
+<?php
+            foreach($this->recentlyAddedWords as $wordModel) {
+                echo <<<HTML
+        <li><a href="/woord/$wordModel->wordDirectory">$wordModel->wordCapitalised</a></li>\n
+HTML;
+            }
+            ?>
+        </ol>
     </aside>
 </div>
 <?php
