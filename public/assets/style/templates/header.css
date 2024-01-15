@@ -17,8 +17,14 @@
     gap: 0.5em;
 }
 
-#banner > h1 {
-    width: min-content;
+#banner > a {
+    height: 75%;
+
+    display: block;
+}
+
+#banner > a > img {
+    height: 100%;
 }
 
 #search {
@@ -47,6 +53,10 @@
     outline: inherit;
 }
 
+#search-input:focus + label {
+    display: none;
+}
+
 #search-label {
     height: 100%;
 }
@@ -63,7 +73,7 @@
     width: fit-content;
     max-width: 80%;
     margin: auto;
-    padding-bottom: 0.5em;
+    padding-bottom: 1em;
 }
 
 #nav > ol {
@@ -87,4 +97,8 @@
     list-style-type: none;
     text-transform: capitalize;
     text-align: center;
+}
+
+#nav > ol > li > a {
+    display: block;
 }

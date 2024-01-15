@@ -8,7 +8,7 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: "Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "index-view"),
+    stylesheets: array("templates/header", "templates/word-list", "index-view"),
 );
 ?>
 <!DOCTYPE html>
@@ -20,9 +20,41 @@ require Controller::getTemplatePath("head");
 <?php
 require Controller::getTemplatePath("header");
 ?>
-<main>
-
-</main>
+<div id="container">
+    <main id="main">
+        <h1>Wiskunde Woordenboek</h1>
+        <p>
+            Het <i>Wiskunde Woordenboek</i> is een online woordenboek (encyclopedie) voor wiskunde. In dit woordenboek vind
+            je een overzicht van wiskundige termen en de bijbehorende betekenissen. De betekenissen zijn beschikbaar op
+            twee niveaus:
+        </p>
+        <ul>
+            <li><b>Standaard.</b> Dit is de standaard betekenis van het woord. Deze betekenis is op het niveau van
+                de middelbare school.</li>
+            <li><b>Formeel.</b> Dit is de formele betekenis van het woord. Deze betekenis is op het niveau van de
+                universiteit.</li>
+        </ul>
+        <p>
+            Voel je vrij om ook eens naar de formele betekenis te kijken!
+        </p>
+        <p>
+            Bij elke definitie zul je ook voorbeelden aantreffen die uitleggen hoe je met een bepaald begrip moet
+            werken. Zo kun je aan de hand van een voorbeeld gemakkelijk bekend raken met een begrip!
+        </p>
+    </main>
+    <aside id="recent-toegevoegd">
+        <h2>Recent toegevoegd</h2>
+        <ol class="word-list">
+<?php
+            foreach($this->recentlyAddedWords as $wordModel) {
+                echo <<<HTML
+            <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+HTML;
+            }
+            ?>
+        </ol>
+    </aside>
+</div>
 <?php
 require Controller::getTemplatePath("footer");
 ?>

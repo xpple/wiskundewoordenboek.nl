@@ -1,0 +1,26 @@
+#container {
+    width: 100vw;
+
+    padding-left: 4%;
+    padding-right: 4%;
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+    #container {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+#main {
+    flex: 2;
+}
+
+#recent-toegevoegd {
+    flex: 1;
+}

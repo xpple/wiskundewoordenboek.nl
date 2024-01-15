@@ -1,0 +1,36 @@
+<?php
+
+use App\Controllers\AboutUsController;
+use App\Controllers\Controller;
+use App\Views\ViewSettings;
+
+/* @var AboutUsController $this */
+
+$settings = new ViewSettings(
+    title: "Over ons | Wiskunde Woordenboek",
+    stylesheets: array("templates/header", "about-us-view"),
+);
+?>
+<!DOCTYPE html>
+<html lang="nl">
+<?php
+require Controller::getTemplatePath("head");
+?>
+<body>
+<?php
+require Controller::getTemplatePath("header");
+?>
+<main id="main">
+    <h1>Over ons</h1>
+    <p>
+        Ons? Nee. Het klinkt nou eenmaal beter dan "over mij". Deze website is namelijk niet door meerdere personen
+        geschreven. Hij is geschreven door mij, Frederik van der Els, derdejaars student Technische Wiskunde aan de TU
+        Delft. Naast mijn interesse in wiskunde, vind ik informatica ook erg leuk. Deze website heb ik dan ook zelf
+        gemaakt. Als je geïnteresseerd bent in hoe, kijk dan <a href="https://github.com/xpple/wiskundewoordenboek.nl/" target="_blank">hier</a>.
+    </p>
+</main>
+<?php
+require Controller::getTemplatePath("footer");
+?>
+</body>
+</html>

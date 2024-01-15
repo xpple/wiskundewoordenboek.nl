@@ -1,6 +1,6 @@
 <header id="header">
     <div id="banner">
-        <h1><a href="/">Wiskunde Woordenboek</a></h1>
+        <a href="/"><img src="/assets/img/logo.png" alt="Logo"></a>
         <form id="search" action="/zoek" method="post">
             <input id="search-input" name="query" type="text">
             <label id="search-label" for="search-input"><img src="/assets/img/search.svg" alt="Search icon"></label>
@@ -11,7 +11,7 @@
 <?php
             foreach(range('a','z') as $letter) {
                 echo <<<HTML
-            <li><a href="/letter/$letter">$letter</a></li>\n
+            <li><a href="/letter/$letter/">$letter</a></li>\n
 HTML;
             }
             ?>

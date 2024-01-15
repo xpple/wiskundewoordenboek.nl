@@ -26,7 +26,7 @@ require Controller::getTemplatePath("header");
 <?php
         foreach($this->wordModels as $wordModel) {
             echo <<<HTML
-        <li><a href="/woord/$wordModel->wordDirectory">$wordModel->wordCapitalised</a></li>\n
+        <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
 HTML;
         }
         ?>

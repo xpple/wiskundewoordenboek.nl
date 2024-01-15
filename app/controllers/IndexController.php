@@ -2,13 +2,27 @@
 
 namespace App\Controllers;
 
+use App\Models\WordModel;
+use App\Util\DatabaseException;
+use App\Util\DatabaseHelper;
 use App\Util\HttpException;
 
 class IndexController extends SuccessController {
+    /**
+     * @var WordModel[] $recentlyAddedWords
+     */
+    private readonly array $recentlyAddedWords;
+
     #[\Override]
     public function load(): void {
         $path = $this->getPath();
         if (count($path) === 0) {
+            try {
+                $databaseHelper = new DatabaseHelper();
+                $this->recentlyAddedWords = $databaseHelper->getRecentlyAddedWords();
+            } catch (DatabaseException $e) {
+                throw new HttpException($e->getMessage(), 500);
+            }
             require Controller::getViewPath("IndexView");
             return;
         }
