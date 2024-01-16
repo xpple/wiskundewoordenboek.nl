@@ -42,17 +42,31 @@ require Controller::getTemplatePath("header");
             werken. Zo kun je aan de hand van een voorbeeld gemakkelijk bekend raken met een begrip!
         </p>
     </main>
-    <aside id="recent-toegevoegd">
-        <h2>Recent toegevoegd</h2>
-        <ol class="word-list">
+    <aside id="aside">
+        <div id="random-words">
+            <h2>Ga naar een willekeurig woord</h2>
+            <ol class="word-list">
 <?php
-            foreach($this->recentlyAddedWords as $wordModel) {
-                echo <<<HTML
-            <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+                foreach($this->randomWords as $wordModel) {
+                    echo <<<HTML
+                <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
 HTML;
-            }
-            ?>
-        </ol>
+                }
+                ?>
+            </ol>
+        </div>
+        <div id="recently-added">
+            <h2>Recent toegevoegd</h2>
+            <ol class="word-list">
+<?php
+                foreach($this->recentlyAddedWords as $wordModel) {
+                    echo <<<HTML
+                <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+HTML;
+                }
+                ?>
+            </ol>
+        </div>
     </aside>
 </div>
 <?php

@@ -42,7 +42,7 @@ class WordController extends SuccessController {
                     }
 
                     $this->wordModel = $wordModel;
-                    $this->recentlyAddedWords = $databaseHelper->getRecentlyAddedWords();
+                    $this->recentlyAddedWords = $databaseHelper->getRecentlyAddedWords(3);
                     require Controller::getViewPath("WordView");
                     break;
                 } catch (DatabaseException $e) {

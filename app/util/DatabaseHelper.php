@@ -124,17 +124,43 @@ readonly class DatabaseHelper {
     }
 
     /**
+     * @param int $amount
      * @return WordModel[]
      *
      * @throws DatabaseException
      */
-    public function getRecentlyAddedWords(): array {
+    public function getRecentlyAddedWords(int $amount): array {
         $statement = $this->conn->prepare(<<<SQL
             SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
             FROM words
             ORDER BY updated_at DESC
-            LIMIT 5;
+            LIMIT :amount;
             SQL);
+        $statement->bindParam("amount", $amount, PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        if ($results === false) {
+            throw DatabaseException::unknownError();
+        }
+
+        return array_map(static fn($result) => new WordModel(...$result), $results);
+    }
+
+    /**
+     * @param int $amount
+     * @return WordModel[]
+     *
+     * @throws DatabaseException
+     */
+    public function getRandomWords(int $amount): array {
+        $statement = $this->conn->prepare(<<<SQL
+            SELECT HEX(word_id) as word_id, word_directory, word_capitalised, word_meaning, word_formal_meaning
+            FROM words
+            ORDER BY rand()
+            LIMIT :amount;
+            SQL);
+        $statement->bindParam("amount", $amount, PDO::PARAM_INT);
         $statement->execute();
         $results = $statement->fetchAll();
 

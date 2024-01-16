@@ -9,6 +9,11 @@ use App\Util\HttpException;
 
 class IndexController extends SuccessController {
     /**
+     * @var WordModel[] $randomWords
+     */
+    private readonly array $randomWords;
+
+    /**
      * @var WordModel[] $recentlyAddedWords
      */
     private readonly array $recentlyAddedWords;
@@ -19,7 +24,8 @@ class IndexController extends SuccessController {
         if (count($path) === 0) {
             try {
                 $databaseHelper = new DatabaseHelper();
-                $this->recentlyAddedWords = $databaseHelper->getRecentlyAddedWords();
+                $this->randomWords = $databaseHelper->getRandomWords(3);
+                $this->recentlyAddedWords = $databaseHelper->getRecentlyAddedWords(3);
             } catch (DatabaseException $e) {
                 throw new HttpException($e->getMessage(), 500);
             }

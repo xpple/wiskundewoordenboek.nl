@@ -1,5 +1,5 @@
 #container {
-    width: 100vw;
+    width: 100%;
 
     padding-left: 4%;
     padding-right: 4%;
@@ -21,6 +21,6 @@
     flex: 2;
 }
 
-#recent-toegevoegd {
+#aside {
     flex: 1;
 }

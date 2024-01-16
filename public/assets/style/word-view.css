@@ -1,5 +1,5 @@
 #container {
-    width: 100vw;
+    width: 100%;
 
     padding-left: 4%;
     padding-right: 4%;
@@ -40,6 +40,6 @@
     vertical-align: middle;
 }
 
-#recent-toegevoegd {
+#recently-added {
     flex: 1;
 }
