@@ -6,17 +6,16 @@ class HttpException extends \Exception {
     /* @var int */
     protected $code;
 
-    /**
-     * @throws HttpException
-     */
-    public static function badRequest() {
-        throw new HttpException("Onjuiste URL.", 400);
+    public static function badRequest(): HttpException {
+        return new HttpException("Onjuiste URL.", 400);
     }
 
-    /**
-     * @throws HttpException
-     */
-    public static function notFound() {
-        throw new HttpException("Niet gevonden.", 404);
+    public static function notFound(): HttpException {
+        return new HttpException("Niet gevonden.", 404);
+    }
+
+    public static function methodNotSupported(string $supportedMethods): HttpException {
+        header("Allow: $supportedMethods");
+        return new HttpException("Verzoekmethode wordt niet ondersteund.", 405);
     }
 }

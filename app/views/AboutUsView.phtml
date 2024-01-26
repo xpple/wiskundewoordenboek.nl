@@ -8,7 +8,7 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: "Over ons | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "about-us-view"),
+    stylesheets: ["templates/header", "about-us-view"],
 );
 ?>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ require Controller::getTemplatePath("head");
 require Controller::getTemplatePath("header");
 ?>
 <main id="main">
-    <h1>Over ons</h1>
+    <h1 id="over-ons">Over ons</h1>
     <p>
         Ons? Nee. Het klinkt nou eenmaal beter dan "over mij". Deze website is namelijk niet door meerdere personen
         geschreven. Hij is geschreven door mij, Frederik van der Els, derdejaars student Technische Wiskunde aan de TU

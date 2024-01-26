@@ -38,8 +38,8 @@ readonly class DatabaseHelper {
                 FROM words
                 WHERE word_directory = :word;
                 SQL);
-            $statement->execute(array("word" => $word));
-            $results = $statement->fetchAll(PDO::FETCH_FUNC, static fn (...$args) => new WordModel(...$args));
+            $statement->execute(["word" => $word]);
+            $results = $statement->fetchAll(PDO::FETCH_FUNC, static fn(...$args) => new WordModel(...$args));
             if (count($results) !== 1) {
                 return null;
             }
@@ -63,8 +63,8 @@ readonly class DatabaseHelper {
                 WHERE word_capitalised LIKE CONCAT(:letter, '%')
                 ORDER BY word_capitalised ASC;
                 SQL);
-            $statement->execute(array("letter" => $letter));
-            return $statement->fetchAll(PDO::FETCH_FUNC, static fn (...$args) => new WordModel(...$args));
+            $statement->execute(["letter" => $letter]);
+            return $statement->fetchAll(PDO::FETCH_FUNC, static fn(...$args) => new WordModel(...$args));
         } catch (PDOException) {
             throw DatabaseException::unknownError();
         }
@@ -84,8 +84,8 @@ readonly class DatabaseHelper {
                 WHERE word_capitalised LIKE CONCAT('%', :query, '%')
                 ORDER BY word_capitalised ASC;
                 SQL);
-            $statement->execute(array("query" => $query));
-            return $statement->fetchAll(PDO::FETCH_FUNC, static fn (...$args) => new WordModel(...$args));
+            $statement->execute(["query" => $query]);
+            return $statement->fetchAll(PDO::FETCH_FUNC, static fn(...$args) => new WordModel(...$args));
         } catch (PDOException) {
             throw DatabaseException::unknownError();
         }
@@ -105,7 +105,7 @@ readonly class DatabaseHelper {
                 INNER JOIN directory_aliases ON words.word_id = directory_aliases.word_id
                 WHERE directory_aliases.directory_alias = :word;
                 SQL);
-            $statement->execute(array("word" => $word));
+            $statement->execute(["word" => $word]);
             $results = $statement->fetchAll(PDO::FETCH_COLUMN);
             if (count($results) !== 1) {
                 return null;
@@ -132,7 +132,7 @@ readonly class DatabaseHelper {
                 SQL);
             $statement->bindParam("amount", $amount, PDO::PARAM_INT);
             $statement->execute();
-            return $statement->fetchAll(PDO::FETCH_FUNC, static fn (...$args) => new WordModel(...$args));
+            return $statement->fetchAll(PDO::FETCH_FUNC, static fn(...$args) => new WordModel(...$args));
         } catch (PDOException) {
             throw DatabaseException::unknownError();
         }
@@ -154,7 +154,7 @@ readonly class DatabaseHelper {
                 SQL);
             $statement->bindParam("amount", $amount, PDO::PARAM_INT);
             $statement->execute();
-            return $statement->fetchAll(PDO::FETCH_FUNC, static fn (...$args) => new WordModel(...$args));
+            return $statement->fetchAll(PDO::FETCH_FUNC, static fn(...$args) => new WordModel(...$args));
         } catch (PDOException) {
             throw DatabaseException::unknownError();
         }

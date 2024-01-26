@@ -4,11 +4,13 @@ use App\Controllers\Controller;
 use App\Controllers\SearchController;
 use App\Views\ViewSettings;
 
+global $f;
+
 /* @var SearchController $this */
 
 $settings = new ViewSettings(
     title: "Zoeken | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "templates/word-list", "search-view"),
+    stylesheets: ["templates/header", "templates/word-list", "search-view"],
 );
 ?>
 <!DOCTYPE html>
@@ -21,12 +23,12 @@ require Controller::getTemplatePath("head");
 require Controller::getTemplatePath("header");
 ?>
 <main>
-    <h2><?= "Zoekresultaten voor \"" . htmlspecialchars($this->query) . "\":" ?></h2>
+    <h2 id="zoekresultaten"><?= "Zoekresultaten voor \"" . htmlspecialchars($this->query) . "\":" ?></h2>
     <ol class="word-list">
 <?php
         foreach($this->wordModels as $wordModel) {
             echo <<<HTML
-        <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+        <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
 HTML;
         }
         ?>

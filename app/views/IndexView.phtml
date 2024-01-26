@@ -4,11 +4,13 @@ use App\Controllers\Controller;
 use App\Controllers\IndexController;
 use App\Views\ViewSettings;
 
+global $f;
+
 /* @var IndexController $this */
 
 $settings = new ViewSettings(
     title: "Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "templates/word-list", "index-view"),
+    stylesheets: ["templates/header", "templates/word-list", "index-view"],
 );
 ?>
 <!DOCTYPE html>
@@ -22,7 +24,7 @@ require Controller::getTemplatePath("header");
 ?>
 <div id="container">
     <main id="main">
-        <h1>Wiskunde Woordenboek</h1>
+        <h1 id="wiskunde-woordenboek">Wiskunde Woordenboek</h1>
         <p>
             Het <i>Wiskunde Woordenboek</i> is een online woordenboek (encyclopedie) voor wiskunde. In dit woordenboek vind
             je een overzicht van wiskundige termen en de bijbehorende betekenissen. De betekenissen zijn beschikbaar op
@@ -42,26 +44,26 @@ require Controller::getTemplatePath("header");
             werken. Zo kun je aan de hand van een voorbeeld gemakkelijk bekend raken met een begrip!
         </p>
     </main>
-    <aside id="aside">
-        <div id="random-words">
-            <h2>Ga naar een willekeurig woord</h2>
-            <ol class="word-list">
+    <aside id="aside-container">
+        <div id="random-words-container">
+            <h2 id="ga-naar-een-willekeurig-woord">Ga naar een willekeurig woord</h2>
+            <ul class="word-list">
 <?php
                 foreach($this->randomWords as $wordModel) {
                     echo <<<HTML
-                <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+                <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
 HTML;
                 }
                 ?>
-            </ol>
+            </ul>
         </div>
-        <div id="recently-added">
-            <h2>Recent toegevoegd</h2>
+        <div id="recently-added-container">
+            <h2 id="recent-toegevoegd">Recent toegevoegd</h2>
             <ol class="word-list">
 <?php
                 foreach($this->recentlyAddedWords as $wordModel) {
                     echo <<<HTML
-                <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+                <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
 HTML;
                 }
                 ?>

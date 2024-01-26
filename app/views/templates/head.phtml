@@ -22,18 +22,15 @@ HTML;
 }
 ?>
 <?php if ($settings->mathsEnabled): ?>
-    <script type="text/javascript">
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$']]
-            },
-            options: {
-                renderActions: {
-                    addMenu: []
-                }
-            }
-        };
-    </script>
+    <script type="text/javascript" src="/assets/script/mathjax-config.js"></script>
     <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" async></script>
 <?php endif ?>
+    <script type="text/javascript" src="/assets/script/header-anchors.js" async></script>
+<?php
+foreach ($settings->scripts as $script) {
+    echo <<<HTML
+    <script type="text/javascript" src="/assets/script/$script.js" async></script>\n
+HTML;
+    }
+?>
 </head>

@@ -4,6 +4,8 @@ use App\Controllers\ErrorController;
 use App\Controllers\IndexController;
 use App\Util\HttpException;
 
+$f = fn($p) => $p;
+
 spl_autoload_register(static function ($class) {
     static $root;
     if ($root == null) {
@@ -29,7 +31,7 @@ try {
     if ($end === "" or $end === "index.php") {
         array_pop($parts);
     }
-    $parts = array_map(static fn ($part) => urldecode($part), $parts);
+    $parts = array_map(urldecode(...), $parts);
     $controller = new IndexController($parts);
     $controller->load();
 } catch (HttpException $e) {

@@ -1,4 +1,4 @@
-.word-list {
+:is(ol, ul).word-list {
     color: white;
 
     font-size: 1.5em;
@@ -6,8 +6,8 @@
     overflow-wrap: anywhere;
 }
 
-.word-list > li {
-    margin: 0.5em;
+:is(ol, ul).word-list > li {
+    margin: 0.5em 0;
 
     border-radius: 5px;
     border: darkblue 3px solid;
@@ -15,7 +15,7 @@
     background-color: dodgerblue;
 }
 
-.word-list > li > a {
+:is(ol, ul).word-list > li > a {
     width: 100%;
 
     display: inline-block;

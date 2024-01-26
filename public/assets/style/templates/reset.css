@@ -2,9 +2,38 @@
     margin: 0;
     padding: 0;
 
+    min-width: 0;
+
+    overflow-wrap: break-word;
+
     box-sizing: border-box;
 
+    scroll-behavior: smooth;
+
     font-family: "Trebuchet MS", sans-serif;
+}
+
+:is(h1, h2, h3, h4, h5, h6){
+    position: relative;
+}
+
+:is(h1, h2, h3, h4, h5, h6) > a.anchor {
+    padding-right: 0.2em;
+
+    left: -0.75em;
+
+    display: none;
+
+    position: absolute;
+    float: left;
+}
+
+:is(h1, h2, h3, h4, h5, h6):hover > a.anchor {
+    display: unset;
+}
+
+:is(h1, h2, h3, h4, h5, h6) > a.anchor:hover {
+    text-decoration: underline;
 }
 
 h1 {
@@ -59,4 +88,21 @@ code.block {
 
     font-size: .875rem;
     line-height: 1.125rem;
+}
+
+input, textarea {
+    border-radius: 3px;
+    border: black 1px solid;
+}
+
+textarea {
+    resize: none;
+}
+
+output.success {
+    color: green;
+}
+
+output.failure {
+    color: red;
 }

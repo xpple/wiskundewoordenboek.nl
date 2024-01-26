@@ -4,11 +4,13 @@ use App\Controllers\Controller;
 use App\Controllers\LetterController;
 use App\Views\ViewSettings;
 
+global $f;
+
 /* @var LetterController $this */
 
 $settings = new ViewSettings(
     title: "$this->letter | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "templates/word-list", "letter-view"),
+    stylesheets: ["templates/header", "templates/word-list", "letter-view"],
 );
 ?>
 <!DOCTYPE html>
@@ -21,12 +23,12 @@ require Controller::getTemplatePath("head");
 require Controller::getTemplatePath("header");
 ?>
 <main>
-    <h2><?= htmlspecialchars($this->letter) ?></h2>
+    <h2 id="<?= htmlspecialchars($this->letter) ?>"><?= htmlspecialchars($this->letter) ?></h2>
     <ol class="word-list">
 <?php
         foreach($this->wordModels as $wordModel) {
             echo <<<HTML
-        <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+        <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
 HTML;
         }
         ?>

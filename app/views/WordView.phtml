@@ -4,11 +4,14 @@ use App\Controllers\Controller;
 use App\Controllers\WordController;
 use App\Views\ViewSettings;
 
+global $f;
+
 /* @var WordController $this */
 
 $settings = new ViewSettings(
     title: $this->wordModel->wordCapitalised . " | Wiskunde Woordenboek",
-    stylesheets: array("templates/header", "templates/word-list", "word-view"),
+    stylesheets: ["templates/header", "templates/word-list", "word-view"],
+    scripts: ["preview-changes", "submit-changes"],
     mathsEnabled: true,
 );
 ?>
@@ -24,11 +27,11 @@ require Controller::getTemplatePath("header");
 <div id="container">
     <main id="main">
         <div id="title-container">
-            <h2><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h2>
+            <h2 id="<?= htmlspecialchars($this->wordModel->wordDirectory) ?>"><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h2>
 <?php
             $formal = ($_GET["betekenis"] ?? null) === "formeel";
             ?>
-            <form id="meaning-option" method="get">
+            <form id="meaning-option-form" method="get">
                 <label for="option-standard">Standaard</label>
                 <input id="option-standard" name="betekenis" value="standaard" type="radio" onchange="this.form.submit()" <?= !$formal ? "checked" : "" ?>>
                 <label for="option-formal">Formeel</label>
@@ -36,27 +39,55 @@ require Controller::getTemplatePath("header");
             </form>
         </div>
 <?php if (!$formal): ?>
-        <p id="meaning">
-            <?= htmlspecialchars($this->wordModel->meaning) ?>
-        </p>
+        <p id="meaning-paragraph"><?= htmlspecialchars($this->wordModel->meaning) ?></p>
 <?php else: ?>
-        <p id="meaning">
-            <?= htmlspecialchars($this->wordModel->formalMeaning) ?>
-        </p>
+        <p id="meaning-paragraph"><?= htmlspecialchars($this->wordModel->formalMeaning) ?></p>
 <?php endif ?>
     </main>
-    <aside id="recently-added">
-        <h2>Recent toegevoegd</h2>
+    <aside id="recently-added-container">
+        <h2 id="recent-toegevoegd">Recent toegevoegd</h2>
         <ol class="word-list">
 <?php
-            foreach($this->recentlyAddedWords as $wordModel) {
-                echo <<<HTML
-        <li><a href="/woord/$wordModel->wordDirectory/">$wordModel->wordCapitalised</a></li>\n
+        foreach($this->recentlyAddedWords as $wordModel) {
+            echo <<<HTML
+            <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
 HTML;
             }
-            ?>
+        ?>
         </ol>
     </aside>
+    <section id="make-changes-container">
+        <h2 id="aanpassingen-aanbrengen">Aanpassingen aanbrengen</h2>
+        <p>
+            Als er foutieve informatie op de pagina staat, of als je informatie wilt toevoegen, kun je hier aanpassingen
+            voorstellen. Omschrijf je aanpassingen zo duidelijk mogelijk. Deze website maakt gebruik van
+            <a href="https://www.mathjax.org/">MathJax</a>. Hiermee kun je wiskundige formules in de opmaaktaal
+            <a href="https://nl.wikipedia.org/wiki/TeX">TeX</a> schrijven. Zo wordt <code class="inline">$x^2$</code>
+            bijvoorbeeld omgezet naar $x^2$. Rond je aanpassingen af met een korte beschrijving waarin je je wijzigingen
+            samenvat. Optioneel kun je je e-mailadres bijvoegen om de aanpassingen te bespreken, indien nodig. Een kopie
+            van je wijzigingen wordt ook naar je gestuurd.
+        </p>
+        <form id="make-changes-form" method="post">
+            <fieldset id="changes-fieldset">
+                <div id="changes-label-container">
+                    <label for="changes-textarea">Aanpassingen</label>
+                    <div id="display-option-div">
+                        <button id="write-button" type="button">Schrijven</button>
+                        <button id="preview-button" type="button">Voorbeeld</button>
+                    </div>
+                </div>
+                <textarea id="changes-textarea" name="changes" rows="10" maxlength="1024" required></textarea>
+                <div id="changes-div" style="display: none"></div>
+                <label for="description-input">Beschrijving</label>
+                <input id="description-input" name="description" type="text" maxlength="1024" required>
+                <label for="email-input">E-mailadres</label>
+                <input id="email-input" name="email" type="email" maxlength="1024">
+                <button id="submit-button" type="submit">Indienen</button>
+                <input name="meaning" value="<?= !$formal ? "standaard" : "formeel" ?>" type="hidden">
+            </fieldset>
+        </form>
+        <output id="make-changes-output" form="make-changes-form"></output>
+    </section>
 </div>
 <?php
 require Controller::getTemplatePath("footer");

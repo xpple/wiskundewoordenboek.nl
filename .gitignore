@@ -9,3 +9,4 @@
 
 # secret
 /app/login-data.php
+/app/webhook.php
