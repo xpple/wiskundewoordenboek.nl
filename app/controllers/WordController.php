@@ -31,10 +31,10 @@ class WordController extends SuccessController {
                     $wordModel = $databaseHelper->getWord($word);
 
                     if ($wordModel === null) {
-                        $word = $databaseHelper->getPrimaryDirectoryForAlias($word);
+                        $primaryDirectory = $databaseHelper->getPrimaryDirectoryForAlias($word);
 
-                        if ($word !== null) {
-                            header("Location: /woord/$word/", true, 301);
+                        if ($primaryDirectory !== null) {
+                            header("Location: /woord/$primaryDirectory/", true, 301);
                             exit;
                         }
 

@@ -97,6 +97,8 @@ input, textarea {
 
 textarea {
     resize: none;
+
+    font-size: inherit;
 }
 
 output.success {

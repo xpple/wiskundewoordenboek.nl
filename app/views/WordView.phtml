@@ -9,7 +9,7 @@ global $f;
 /* @var WordController $this */
 
 $settings = new ViewSettings(
-    title: $this->wordModel->wordCapitalised . " | Wiskunde Woordenboek",
+    title: htmlspecialchars($this->wordModel->wordCapitalised) . " | Wiskunde Woordenboek",
     stylesheets: ["templates/header", "templates/word-list", "word-view"],
     scripts: ["preview-changes", "submit-changes"],
     mathsEnabled: true,
@@ -27,7 +27,7 @@ require Controller::getTemplatePath("header");
 <div id="container">
     <main id="main">
         <div id="title-container">
-            <h2 id="<?= htmlspecialchars($this->wordModel->wordDirectory) ?>"><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h2>
+            <h1 id="<?= htmlspecialchars($this->wordModel->wordDirectory) ?>"><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h1>
 <?php
             $formal = ($_GET["betekenis"] ?? null) === "formeel";
             ?>

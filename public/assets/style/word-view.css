@@ -25,7 +25,7 @@
 }
 
 #title-container {
-    margin-bottom: -0.75em;
+    margin-bottom: -0.67em;
 
     display: inline-flex;
 
@@ -114,6 +114,8 @@
 }
 
 #changes-div {
+    min-height: 10lh;
+
     white-space: pre-wrap;
 }
 

@@ -9,7 +9,7 @@ global $f;
 /* @var LetterController $this */
 
 $settings = new ViewSettings(
-    title: "$this->letter | Wiskunde Woordenboek",
+    title: htmlspecialchars($this->letter) . " | Wiskunde Woordenboek",
     stylesheets: ["templates/header", "templates/word-list", "letter-view"],
 );
 ?>
@@ -23,7 +23,7 @@ require Controller::getTemplatePath("head");
 require Controller::getTemplatePath("header");
 ?>
 <main>
-    <h2 id="<?= htmlspecialchars($this->letter) ?>"><?= htmlspecialchars($this->letter) ?></h2>
+    <h1 id="<?= htmlspecialchars($this->letter) ?>">Woorden met de letter "<?= htmlspecialchars($this->letter) ?>":</h1>
     <ol class="word-list">
 <?php
         foreach($this->wordModels as $wordModel) {
