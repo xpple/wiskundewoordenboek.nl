@@ -3,7 +3,12 @@
 namespace App\Controllers;
 
 abstract class Controller {
-    public abstract function load(): void;
+    /**
+     * Perform controlling actions and if needed delegate further tasks to a more specific controller.
+     *
+     * @return Controller|null A more specific controller if the task is delegated and null if not.
+     */
+    public abstract function loadAndDelegate(): ?Controller;
 
     public static final function getRoot(): string {
         return dirname($_SERVER['DOCUMENT_ROOT']);

@@ -6,7 +6,6 @@
 
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto;
     justify-content: space-between;
 
     column-gap: 2em;
@@ -14,6 +13,9 @@
 
 @media only screen and (max-width: 600px) {
     #container {
+        padding-left: 8%;
+        padding-right: 8%;
+
         display: flex;
         flex-direction: column;
     }
@@ -21,10 +23,11 @@
 
 #main {
     grid-column: 1 / 2;
-    grid-row: 1 / 2;
 }
 
 #title-container {
+    width: 100%;
+
     margin-bottom: -0.67em;
 
     display: inline-flex;
@@ -34,32 +37,38 @@
     gap: 0.5em;
 }
 
-#meaning-option-form {
+#title-container > h1 {
+    flex-grow: 1;
+}
+
+#title-input {
+    all: unset;
+
+    width: 100%;
+
+    border-radius: 3px;
+    border: black 1px solid;
+}
+
+#meaning-option-div {
+    margin: 1em 0;
     padding: 0.1em;
+
+    flex-shrink: 0;
 
     border-radius: 5px;
     border: black 3px solid;
 }
 
-#meaning-option-form > * {
+#meaning-option-div > * {
     vertical-align: middle;
-}
-
-#meaning-paragraph {
-    white-space: pre-wrap;
 }
 
 #recently-added-container {
     grid-column: 2 / 3;
-    grid-row: 1 / 2;
 }
 
-#make-changes-container {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
-}
-
-#changes-fieldset {
+#content-fieldset {
     height: 100%;
 
     display: flex;
@@ -70,22 +79,21 @@
     background-color: white;
 }
 
-
-#changes-fieldset :is(label, input, button) {
+#content-fieldset :is(label, input, button) {
     margin: 0.25em 0;
 }
 
-#changes-fieldset label {
+#content-fieldset label {
     font-weight: bold;
 }
 
-#changes-fieldset button {
+#content-fieldset button {
     min-width: 10%;
 
     padding: 0.5em 1em;
 }
 
-#changes-label-container {
+#content-label-container {
     display: inline-flex;
 
     align-items: center;
@@ -106,19 +114,19 @@
     vertical-align: middle;
 }
 
-#changes-textarea, #changes-div {
+#content-textarea, #content-div {
     min-height: 100%;
 
     border-radius: 3px;
     border: black 1px solid;
 }
 
-#changes-div {
-    min-height: 10lh;
+#content-div {
+    min-height: 20lh;
 
     white-space: pre-wrap;
 }
 
-#make-changes-output {
+#create-page-output {
     font-style: italic;
 }

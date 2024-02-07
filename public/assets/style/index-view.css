@@ -12,6 +12,9 @@
 
 @media only screen and (max-width: 600px) {
     #container {
+        padding-left: 8%;
+        padding-right: 8%;
+
         flex-direction: column;
         gap: 0;
     }

@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\WordModel;
-use App\Util\DatabaseException;
 use App\Util\DatabaseHelper;
 use App\Util\HttpException;
 
@@ -16,7 +15,7 @@ class LetterController extends SuccessController {
     private readonly array $wordModels;
 
     #[\Override]
-    public function load(): void {
+    public function loadAndDelegate(): ?Controller {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
@@ -28,14 +27,11 @@ class LetterController extends SuccessController {
                     throw HttpException::notFound();
                 }
                 $this->letter = $letter;
-                try {
-                    $databaseHelper = new DatabaseHelper();
-                    $this->wordModels = $databaseHelper->getWordsForLetter($this->letter);
-                } catch (DatabaseException $e) {
-                    throw new HttpException($e->getMessage(), 500);
-                }
+
+                $databaseHelper = DatabaseHelper::getInstance();
+                $this->wordModels = $databaseHelper->getWordsForLetter($this->letter);
                 require Controller::getViewPath("LetterView");
-                break;
+                return null;
             default:
                 throw HttpException::notFound();
         }

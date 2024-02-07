@@ -1,0 +1,127 @@
+#container {
+    width: 100%;
+
+    padding-left: 4%;
+    padding-right: 4%;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    justify-content: space-between;
+
+    column-gap: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+    #container {
+        padding-left: 8%;
+        padding-right: 8%;
+
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#main {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+#title-container {
+    margin-bottom: -0.67em;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.5em;
+}
+
+#meaning-option-form {
+    padding: 0.1em;
+
+    border-radius: 5px;
+    border: black 3px solid;
+}
+
+#meaning-option-form > * {
+    vertical-align: middle;
+}
+
+#meaning-paragraph {
+    white-space: pre-wrap;
+}
+
+#recently-added-container {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+#make-changes-container {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+
+#changes-fieldset {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    border: none;
+
+    background-color: white;
+}
+
+
+#changes-fieldset :is(label, input, button) {
+    margin: 0.25em 0;
+}
+
+#changes-fieldset label {
+    font-weight: bold;
+}
+
+#changes-fieldset button {
+    min-width: 10%;
+
+    padding: 0.5em 1em;
+}
+
+#changes-label-container {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.5em;
+}
+
+#display-option-div {
+    padding: 0.1em;
+
+    border-radius: 5px;
+    border: black 3px solid;
+    border-bottom: none;
+    border-top: none;
+}
+
+#display-option-div > * {
+    vertical-align: middle;
+}
+
+#changes-textarea, #changes-div {
+    min-height: 100%;
+
+    border-radius: 3px;
+    border: black 1px solid;
+}
+
+#changes-div {
+    min-height: 10lh;
+
+    white-space: pre-wrap;
+}
+
+#make-changes-output {
+    font-style: italic;
+}

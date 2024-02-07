@@ -19,5 +19,5 @@ abstract class SuccessController extends Controller {
     /**
      * @throws HttpException
      */
-    public abstract function load(): void;
+    public abstract function loadAndDelegate(): ?Controller;
 }

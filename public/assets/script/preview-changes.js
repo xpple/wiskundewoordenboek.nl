@@ -1,8 +1,8 @@
 /**
  * @type {HTMLTextAreaElement}
  */
-const changesTextArea = document.getElementById("changes-textarea");
-const changesDiv = document.getElementById("changes-div");
+const changesTextArea = document.getElementById("changes-textarea") ?? document.getElementById("content-textarea");
+const changesDiv = document.getElementById("changes-div") ?? document.getElementById("content-div");
 const writeButton = document.getElementById("write-button");
 const previewButton = document.getElementById("preview-button");
 

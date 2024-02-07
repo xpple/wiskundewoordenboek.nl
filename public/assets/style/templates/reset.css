@@ -13,7 +13,7 @@
     font-family: "Trebuchet MS", sans-serif;
 }
 
-:is(h1, h2, h3, h4, h5, h6){
+:is(h1, h2, h3, h4, h5, h6) {
     position: relative;
 }
 
@@ -86,7 +86,7 @@ code.block {
 
     background: hsl(220 13% 95.5%);
 
-    font-size: .875rem;
+    font-size: 0.875rem;
     line-height: 1.125rem;
 }
 

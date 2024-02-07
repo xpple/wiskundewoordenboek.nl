@@ -14,7 +14,7 @@ readonly class DatabaseHelper {
     /**
      * @throws DatabaseException
      */
-    public function __construct() {
+    private function __construct() {
         try {
             require Controller::getRoot() . "/app/login-data.php";
             $this->conn = new PDO("mysql:host={$server};port={$port};dbname={$dbname};charset=UTF8", $user, $pass);
@@ -23,6 +23,19 @@ readonly class DatabaseHelper {
         } catch (PDOException) {
             throw DatabaseException::unknownError();
         }
+    }
+
+    /**
+     * @return DatabaseHelper
+     *
+     * @throws DatabaseException
+     */
+    public static function getInstance(): DatabaseHelper {
+        static $databaseHelper = null;
+        if ($databaseHelper === null) {
+            $databaseHelper = new DatabaseHelper();
+        }
+        return $databaseHelper;
     }
 
     /**

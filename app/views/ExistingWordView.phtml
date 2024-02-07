@@ -1,16 +1,16 @@
 <?php
 
 use App\Controllers\Controller;
-use App\Controllers\WordController;
+use App\Controllers\ExistingWordController;
 use App\Views\ViewSettings;
 
 global $f;
 
-/* @var WordController $this */
+/* @var ExistingWordController $this */
 
 $settings = new ViewSettings(
     title: htmlspecialchars($this->wordModel->wordCapitalised) . " | Wiskunde Woordenboek",
-    stylesheets: ["templates/header", "templates/word-list", "word-view"],
+    stylesheets: ["templates/header", "templates/word-list", "existing-word-view"],
     scripts: ["preview-changes", "submit-changes"],
     mathsEnabled: true,
 );
@@ -60,12 +60,11 @@ HTML;
         <h2 id="aanpassingen-aanbrengen">Aanpassingen aanbrengen</h2>
         <p>
             Als er foutieve informatie op de pagina staat, of als je informatie wilt toevoegen, kun je hier aanpassingen
-            voorstellen. Omschrijf je aanpassingen zo duidelijk mogelijk. Deze website maakt gebruik van
-            <a href="https://www.mathjax.org/">MathJax</a>. Hiermee kun je wiskundige formules in de opmaaktaal
-            <a href="https://nl.wikipedia.org/wiki/TeX">TeX</a> schrijven. Zo wordt <code class="inline">$x^2$</code>
-            bijvoorbeeld omgezet naar $x^2$. Rond je aanpassingen af met een korte beschrijving waarin je je wijzigingen
-            samenvat. Optioneel kun je je e-mailadres bijvoegen om de aanpassingen te bespreken, indien nodig. Een kopie
-            van je wijzigingen wordt ook naar je gestuurd.
+            voorstellen. Omschrijf je aanpassingen zo duidelijk mogelijk. Je kunt gebruik maken van de opmaaktaal
+            <a href="https://nl.wikipedia.org/wiki/TeX">TeX</a> om wiskundige formules te schrijven. Zo wordt
+            <code class="inline">$x^2$</code> bijvoorbeeld omgezet naar $x^2$. Rond je aanpassingen af met een korte
+            beschrijving waarin je je wijzigingen samenvat. Optioneel kun je je e-mailadres bijvoegen om de aanpassingen
+            te bespreken. Een kopie van je wijzigingen wordt ook naar je gestuurd.
         </p>
         <form id="make-changes-form" method="post">
             <fieldset id="changes-fieldset">
