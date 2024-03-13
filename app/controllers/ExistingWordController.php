@@ -48,15 +48,25 @@ class ExistingWordController extends SuccessController {
         if ($changes === null) {
             return (object) ["success" => false, "errorMessage" => "Aanpassingen mogen niet leeg zijn!"];
         }
+        if (strlen($changes) > 1024) {
+            return (object) ["success" => false, "errorMessage" => "Aanpassingen mogen niet langer dan 1024 karakters zijn!"];
+        }
         $description = $_POST["description"] ?? null ?: null;
         if ($description === null) {
             return (object) ["success" => false, "errorMessage" => "Beschrijving mag niet leeg zijn!"];
         }
+        if (strlen($description) > 1024) {
+            return (object) ["success" => false, "errorMessage" => "Beschrijving mag niet langer dan 1024 karakters zijn!"];
+        }
         $meaning = ($_POST["meaning"] ?? null) === "formeel" ? "formeel" : "standaard";
         $email = ($_POST["email"] ?? null) ? "`{$_POST["email"]}`" : "Geen e-mailadres opgegeven";
+        if (strlen($email) > 1024) {
+            return (object) ["success" => false, "errorMessage" => "E-mailadres mag niet langer dan 1024 karakters zijn!"];
+        }
 
         $curl = curl_init();
-        require Controller::getRoot() . "/app/webhook.php";
+        require Controller::getRoot() . "/app/public-webhook.php";
+        /* @var string $webhook */
         curl_setopt_array($curl, [
             CURLOPT_URL => $webhook,
             CURLOPT_POST => true,

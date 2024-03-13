@@ -10,8 +10,8 @@ global $f;
 
 $settings = new ViewSettings(
     title: htmlspecialchars($this->wordModel->wordCapitalised) . " | Wiskunde Woordenboek",
-    stylesheets: ["templates/header", "templates/word-list", "existing-word-view"],
-    scripts: ["preview-changes", "submit-changes"],
+    stylesheets: ["templates/header", "templates/footer", "templates/word-list", "existing-word-view"],
+    scripts: ["heading-anchors", "required-inputs", "preview-changes", "submit-changes"],
     mathsEnabled: true,
 );
 ?>
@@ -64,26 +64,24 @@ HTML;
             <a href="https://nl.wikipedia.org/wiki/TeX">TeX</a> om wiskundige formules te schrijven. Zo wordt
             <code class="inline">$x^2$</code> bijvoorbeeld omgezet naar $x^2$. Rond je aanpassingen af met een korte
             beschrijving waarin je je wijzigingen samenvat. Optioneel kun je je e-mailadres bijvoegen om de aanpassingen
-            te bespreken. Een kopie van je wijzigingen wordt ook naar je gestuurd.
+            verder te bespreken. Een kopie van je wijzigingen wordt ook naar je gestuurd.
         </p>
         <form id="make-changes-form" method="post">
-            <fieldset id="changes-fieldset">
-                <div id="changes-label-container">
-                    <label for="changes-textarea">Aanpassingen</label>
-                    <div id="display-option-div">
-                        <button id="write-button" type="button">Schrijven</button>
-                        <button id="preview-button" type="button">Voorbeeld</button>
-                    </div>
+            <div id="changes-label-container">
+                <label for="changes-textarea">Aanpassingen</label>
+                <div id="display-option-div">
+                    <button id="write-button" type="button">Schrijven</button>
+                    <button id="preview-button" type="button">Voorbeeld</button>
                 </div>
-                <textarea id="changes-textarea" name="changes" rows="10" maxlength="1024" required></textarea>
-                <div id="changes-div" style="display: none"></div>
-                <label for="description-input">Beschrijving</label>
-                <input id="description-input" name="description" type="text" maxlength="1024" required>
-                <label for="email-input">E-mailadres</label>
-                <input id="email-input" name="email" type="email" maxlength="1024">
-                <button id="submit-button" type="submit">Indienen</button>
-                <input name="meaning" value="<?= !$formal ? "standaard" : "formeel" ?>" type="hidden">
-            </fieldset>
+            </div>
+            <textarea id="changes-textarea" name="changes" rows="10" maxlength="1024" required></textarea>
+            <div id="changes-div" style="display: none"></div>
+            <label for="description-input">Beschrijving</label>
+            <input id="description-input" name="description" type="text" maxlength="1024" required>
+            <label for="email-input">E-mailadres</label>
+            <input id="email-input" name="email" type="email" maxlength="1024">
+            <button id="submit-button" type="submit">Indienen</button>
+            <input name="meaning" value="<?= !$formal ? "standaard" : "formeel" ?>" type="hidden">
         </form>
         <output id="make-changes-output" form="make-changes-form"></output>
     </section>

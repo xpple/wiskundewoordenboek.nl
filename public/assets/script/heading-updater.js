@@ -20,9 +20,9 @@ titleInput.addEventListener('input', () => {
 });
 
 function sanitize(string) {
-    let sanitisedString = string;
-    sanitisedString = sanitisedString.normalize("NFD");
-    sanitisedString = sanitisedString.replaceAll(/\s+/g, '-');
-    sanitisedString = sanitisedString.replaceAll(sanitizePattern, '');
-    return sanitisedString.toLowerCase();
+    return string
+        .normalize("NFD")
+        .replaceAll(/\s+/g, '-')
+        .replaceAll(sanitizePattern, '')
+        .toLowerCase();
 }

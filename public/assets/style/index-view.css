@@ -1,8 +1,7 @@
 #container {
     width: 100%;
 
-    padding-left: 4%;
-    padding-right: 4%;
+    padding: 1em 4%;
 
     display: flex;
     justify-content: space-between;

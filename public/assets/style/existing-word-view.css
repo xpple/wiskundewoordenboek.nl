@@ -1,8 +1,7 @@
 #container {
     width: 100%;
 
-    padding-left: 4%;
-    padding-right: 4%;
+    padding: 1em 4%;
 
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -62,27 +61,21 @@
     grid-row: 2 / 3;
 }
 
-#changes-fieldset {
-    height: 100%;
-
+#make-changes-form {
     display: flex;
+
     flex-direction: column;
-
-    border: none;
-
-    background-color: white;
 }
 
-
-#changes-fieldset :is(label, input, button) {
+#make-changes-form :is(label, input, button) {
     margin: 0.25em 0;
 }
 
-#changes-fieldset label {
+#make-changes-form label {
     font-weight: bold;
 }
 
-#changes-fieldset button {
+#make-changes-form button {
     min-width: 10%;
 
     padding: 0.5em 1em;
@@ -99,14 +92,18 @@
 #display-option-div {
     padding: 0.1em;
 
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     border: black 3px solid;
     border-bottom: none;
-    border-top: none;
 }
 
 #display-option-div > * {
     vertical-align: middle;
+}
+
+#display-option-div > button {
+    margin: 0.25em;
 }
 
 #changes-textarea, #changes-div {

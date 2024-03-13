@@ -1,0 +1,40 @@
+#footer {
+    padding: 1em 4%;
+
+    display: flex;
+
+    align-items: center;
+
+    background-color: #7feaff;
+}
+
+#footer ul {
+    list-style-type: none;
+}
+
+#footer a:hover {
+    text-decoration: underline;
+}
+
+#footer-links {
+    flex-grow: 1;
+}
+
+#footer-social-media {
+    flex-grow: 1;
+}
+
+#footer-social-media a {
+    display: inline-flex;
+    gap: 0.25em;
+}
+
+#footer-social-media img {
+    height: 1lh;
+}
+
+#footer-copyright {
+    width: min-content;
+
+    text-align: right;
+}

@@ -29,6 +29,7 @@ class IndexController extends SuccessController {
         }
         $topDir = array_shift($path);
         return match ($topDir) {
+            "contact" => new ContactController($path),
             "letter" => new LetterController($path),
             "over-ons" => new AboutUsController($path),
             "woord" => new WordController($path),

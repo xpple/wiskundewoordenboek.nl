@@ -9,7 +9,8 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: $this->cause->getMessage() . " | Wiskunde Woordenboek",
-    stylesheets: ["templates/header", "error-view"],
+    stylesheets: ["templates/header", "templates/footer", "error-view"],
+    scripts: ["heading-anchors"],
 );
 ?>
 <!DOCTYPE html>
@@ -21,7 +22,7 @@ require Controller::getTemplatePath("head");
 <?php
 require Controller::getTemplatePath("header");
 ?>
-<main>
+<main id="main">
     <h1><?= $this->cause instanceof HttpException ? $this->cause->getCode() . ": " . $this->cause->getMessage() : "Er heeft zich een onbekende fout opgetreden." ?></h1>
 </main>
 <?php

@@ -1,9 +1,7 @@
 #header {
     width: 100%;
 
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 10px;
+    padding: 1em 4%;
 
     background-color: aquamarine;
 }
@@ -54,6 +52,13 @@
     outline: inherit;
 }
 
+@media only screen and (max-width: 600px) {
+    #header a:has(+ #search:focus-within) {
+        opacity: 0;
+        transition: opacity 0.5s linear;
+    }
+}
+
 #search-input:focus + label {
     display: none;
 }
@@ -74,7 +79,6 @@
     width: fit-content;
     max-width: 80%;
     margin: auto;
-    padding-bottom: 1em;
 }
 
 #nav > ol {

@@ -8,7 +8,8 @@ use App\Views\ViewSettings;
 
 $settings = new ViewSettings(
     title: "Over ons | Wiskunde Woordenboek",
-    stylesheets: ["templates/header", "about-us-view"],
+    stylesheets: ["templates/header", "templates/footer", "about-us-view"],
+    scripts: ["heading-anchors"],
 );
 ?>
 <!DOCTYPE html>
@@ -23,10 +24,9 @@ require Controller::getTemplatePath("header");
 <main id="main">
     <h1 id="over-ons">Over ons</h1>
     <p>
-        Ons? Nee. Het klinkt nou eenmaal beter dan "over mij". Deze website is namelijk niet door meerdere personen
-        geschreven. Hij is geschreven door mij, Frederik van der Els, derdejaars student Technische Wiskunde aan de TU
-        Delft. Naast mijn interesse in wiskunde, vind ik informatica ook erg leuk. Deze website heb ik dan ook zelf
-        gemaakt. Als je geïnteresseerd bent in hoe, kijk dan <a href="https://github.com/xpple/wiskundewoordenboek.nl/" target="_blank">hier</a>.
+        Deze website is geschreven door mij, Frederik van der Els, derdejaars student Technische Wiskunde aan de TU
+        Delft. Naast mijn studie ben ik parttime SOC analyst bij Fox-IT. Ik vind ik informatica namelijk ook erg leuk.
+        Deze website heb ik dan ook voor mijn plezier gemaakt. Als je geïnteresseerd bent in hoe, kijk dan <a href="https://github.com/xpple/wiskundewoordenboek.nl/" target="_blank">hier</a>.
     </p>
 </main>
 <?php
