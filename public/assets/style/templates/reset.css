@@ -91,6 +91,8 @@ code.block {
 }
 
 input, textarea {
+    padding: 3px;
+
     border-radius: 3px;
     border: black 1px solid;
 }

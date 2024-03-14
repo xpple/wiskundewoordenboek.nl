@@ -17,7 +17,14 @@ readonly class DatabaseHelper {
     private function __construct() {
         try {
             require Controller::getRoot() . "/app/login-data.php";
-            $this->conn = new PDO("mysql:host={$server};port={$port};dbname={$dbname};charset=UTF8", $user, $pass);
+            /**
+             * @var string $server
+             * @var string $port
+             * @var string $dbname
+             * @var string $user
+             * @var string $pass
+             */
+            $this->conn = new PDO("mysql:host=$server;port=$port;dbname=$dbname;charset=UTF8", $user, $pass);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_NUM);
         } catch (PDOException) {

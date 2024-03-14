@@ -10,6 +10,7 @@ readonly class ViewSettings {
         /* @var string[] $scripts */
         public array $scripts = [],
         public bool $mathsEnabled = false,
+        public bool $markdownEnabled = false,
     ) {
     }
 }

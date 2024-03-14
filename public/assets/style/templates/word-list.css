@@ -1,4 +1,6 @@
 :is(ol, ul).word-list {
+    list-style-type: none;
+
     color: white;
 
     font-size: 1.5em;

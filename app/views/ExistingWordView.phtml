@@ -13,6 +13,7 @@ $settings = new ViewSettings(
     stylesheets: ["templates/header", "templates/footer", "templates/word-list", "existing-word-view"],
     scripts: ["heading-anchors", "required-inputs", "preview-changes", "submit-changes"],
     mathsEnabled: true,
+    markdownEnabled: true,
 );
 ?>
 <!DOCTYPE html>
@@ -39,9 +40,9 @@ require Controller::getTemplatePath("header");
             </form>
         </div>
 <?php if (!$formal): ?>
-        <p id="meaning-paragraph"><?= htmlspecialchars($this->wordModel->meaning) ?></p>
+        <p id="meaning-paragraph" class="render-tex render-markdown"><?= htmlspecialchars($this->wordModel->meaning) ?></p>
 <?php else: ?>
-        <p id="meaning-paragraph"><?= htmlspecialchars($this->wordModel->formalMeaning) ?></p>
+        <p id="meaning-paragraph" class="render-tex render-markdown"><?= htmlspecialchars($this->wordModel->formalMeaning) ?></p>
 <?php endif ?>
     </main>
     <aside id="recently-added-container">
@@ -58,13 +59,16 @@ HTML;
     </aside>
     <section id="make-changes-container">
         <h2 id="aanpassingen-aanbrengen">Aanpassingen aanbrengen</h2>
-        <p>
+        <p class="render-tex">
             Als er foutieve informatie op de pagina staat, of als je informatie wilt toevoegen, kun je hier aanpassingen
             voorstellen. Omschrijf je aanpassingen zo duidelijk mogelijk. Je kunt gebruik maken van de opmaaktaal
             <a href="https://nl.wikipedia.org/wiki/TeX">TeX</a> om wiskundige formules te schrijven. Zo wordt
-            <code class="inline">$x^2$</code> bijvoorbeeld omgezet naar $x^2$. Rond je aanpassingen af met een korte
-            beschrijving waarin je je wijzigingen samenvat. Optioneel kun je je e-mailadres bijvoegen om de aanpassingen
-            verder te bespreken. Een kopie van je wijzigingen wordt ook naar je gestuurd.
+            <code class="inline">$x^2$</code> bijvoorbeeld omgezet naar $x^2$. Je kunt ook gebruik maken van (een deel
+            van) <a href="https://nl.wikipedia.org/wiki/Markdown">Markdown</a>. Afbeeldingen kun je invoegen met
+            <code class="inline">![tekst voor als de afbeelding niet beschikbaar is](https://domein.nl/afbeelding.png)</code>.
+            Rond je aanpassingen af met een korte beschrijving waarin je je wijzigingen samenvat. Optioneel kun je je
+            e-mailadres bijvoegen om de aanpassingen verder te bespreken. Een kopie van je wijzigingen wordt ook naar je
+            gestuurd.
         </p>
         <form id="make-changes-form" method="post">
             <div id="changes-label-container">

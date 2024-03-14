@@ -51,6 +51,10 @@
     white-space: pre-wrap;
 }
 
+#meaning-paragraph > img {
+    max-width: 100%;
+}
+
 #recently-added-container {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
@@ -116,7 +120,13 @@
 #changes-div {
     min-height: 10lh;
 
+    padding: 3px;
+
     white-space: pre-wrap;
+}
+
+#changes-div > img {
+    max-width: 100%;
 }
 
 #make-changes-output {

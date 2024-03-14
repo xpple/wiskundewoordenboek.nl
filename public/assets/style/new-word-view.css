@@ -126,6 +126,8 @@
 #content-div {
     min-height: 20lh;
 
+    padding: 3px;
+
     white-space: pre-wrap;
 }
 
