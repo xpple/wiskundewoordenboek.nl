@@ -16,6 +16,6 @@ previewButton.addEventListener('click', () => {
     changesDiv.innerHTML = changesTextArea.value;
     changesDiv.removeAttribute('style');
     changesTextArea.style.display = 'none';
-    MathJax.typeset([changesDiv]);
     changesDiv.innerHTML = marked.parseInline(changesDiv.innerHTML);
+    MathJax.typeset([changesDiv]);
 });
