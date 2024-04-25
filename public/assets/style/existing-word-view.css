@@ -47,8 +47,12 @@
     vertical-align: middle;
 }
 
-#meaning-div > img {
+#meaning-div img {
     max-width: 100%;
+}
+
+mjx-container[jax="SVG"] {
+    overflow: auto;
 }
 
 #recently-added-container {
@@ -119,8 +123,12 @@
     padding: 3px;
 }
 
-#changes-div > img {
+#changes-div img {
     max-width: 100%;
+}
+
+mjx-container[jax="SVG"] {
+    overflow: auto;
 }
 
 #make-changes-output {
