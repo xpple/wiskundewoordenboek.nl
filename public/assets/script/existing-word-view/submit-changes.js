@@ -1,8 +1,8 @@
 /**
  * @type {HTMLFormElement}
  */
-const makeChangesForm = document.getElementById("make-changes-form") ?? document.getElementById("create-page-form");
-const makeChangesOutput = document.getElementById("make-changes-output") ?? document.getElementById("create-page-output");
+const makeChangesForm = document.getElementById("make-changes-form");
+const makeChangesOutput = document.getElementById("make-changes-output");
 
 makeChangesForm.addEventListener('submit', async e => {
     e.preventDefault();

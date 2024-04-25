@@ -1,5 +1,3 @@
-const sanitizePattern = /\p{Mn}|[^a-zA-Z0-9-]/gu;
-
 const titleHeading = document.querySelector("#title-container > h1");
 /**
  * @type {HTMLAnchorElement}
@@ -19,10 +17,4 @@ titleInput.addEventListener('input', () => {
     titleInput.defaultValue = value;
 });
 
-function sanitize(string) {
-    return string
-        .normalize("NFD")
-        .replaceAll(/\s+/g, '-')
-        .replaceAll(sanitizePattern, '')
-        .toLowerCase();
-}
+

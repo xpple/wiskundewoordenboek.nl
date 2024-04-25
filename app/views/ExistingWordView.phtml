@@ -11,7 +11,7 @@ global $f;
 $settings = new ViewSettings(
     title: htmlspecialchars($this->wordModel->wordCapitalised) . " | Wiskunde Woordenboek",
     stylesheets: ["templates/header", "templates/footer", "templates/word-list", "existing-word-view"],
-    scripts: ["heading-anchors", "required-inputs", "preview-changes", "submit-changes"],
+    scripts: ["heading-anchors", "required-inputs", "existing-word-view/preview-changes", "existing-word-view/submit-changes"],
     mathsEnabled: true,
     markdownEnabled: true,
 );

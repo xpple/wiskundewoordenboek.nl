@@ -6,7 +6,11 @@ marked.use({
 
         code(code, infostring, escaped) {
             return `<code class="block">${code}</code>`;
-        }
+        },
+
+        heading(text, level, raw) {
+            return `<h${level} id="${sanitize(text)}">${text}</h${level}>\n`;
+        },
     }
 });
 

@@ -11,7 +11,7 @@ global $f;
 $settings = new ViewSettings(
     title: htmlspecialchars($this->word) . " creëren | Wiskunde Woordenboek",
     stylesheets: ["templates/header", "templates/footer", "templates/word-list", "new-word-view"],
-    scripts: ["heading-anchors", "required-inputs", "preview-changes", "submit-changes", "heading-updater"],
+    scripts: ["heading-anchors", "required-inputs", "new-word-view/preview-changes", "new-word-view/submit-changes", "new-word-view/heading-updater"],
     mathsEnabled: true,
     markdownEnabled: true,
 );
