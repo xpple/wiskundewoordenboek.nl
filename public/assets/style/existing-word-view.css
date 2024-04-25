@@ -47,11 +47,7 @@
     vertical-align: middle;
 }
 
-#meaning-paragraph {
-    white-space: pre-wrap;
-}
-
-#meaning-paragraph > img {
+#meaning-div > img {
     max-width: 100%;
 }
 
@@ -121,8 +117,6 @@
     min-height: 10lh;
 
     padding: 3px;
-
-    white-space: pre-wrap;
 }
 
 #changes-div > img {

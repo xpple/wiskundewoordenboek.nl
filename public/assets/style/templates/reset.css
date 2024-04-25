@@ -50,7 +50,7 @@ a:any-link {
     color: inherit;
 }
 
-a:not(p > a) {
+a:not(.text a) {
     text-decoration: none;
 }
 
@@ -58,7 +58,7 @@ p {
     margin: 1em 0;
 }
 
-p + ul, p + ol {
+.text :is(ol, ul) {
     margin: 1em 0;
     padding-left: 2.5em;
 }

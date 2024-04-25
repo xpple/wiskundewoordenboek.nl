@@ -40,9 +40,9 @@ require Controller::getTemplatePath("header");
             </form>
         </div>
 <?php if (!$formal): ?>
-        <p id="meaning-paragraph" class="render-tex render-markdown"><?= htmlspecialchars($this->wordModel->meaning) ?></p>
+        <div id="meaning-div" class="text render-tex render-markdown"><?= htmlspecialchars($this->wordModel->meaning) ?></div>
 <?php else: ?>
-        <p id="meaning-paragraph" class="render-tex render-markdown"><?= htmlspecialchars($this->wordModel->formalMeaning) ?></p>
+        <div id="meaning-div" class="text render-tex render-markdown"><?= htmlspecialchars($this->wordModel->formalMeaning) ?></div>
 <?php endif ?>
     </main>
     <aside id="recently-added-container">
@@ -57,12 +57,12 @@ HTML;
         ?>
         </ol>
     </aside>
-    <section id="make-changes-container">
+    <section id="make-changes-container" class="text">
         <h2 id="aanpassingen-aanbrengen">Aanpassingen aanbrengen</h2>
         <p class="render-tex">
             Als er foutieve informatie op de pagina staat, of als je informatie wilt toevoegen, kun je hier aanpassingen
             voorstellen. Omschrijf je aanpassingen zo duidelijk mogelijk. Je kunt gebruik maken van de opmaaktaal
-            <a href="https://nl.wikipedia.org/wiki/TeX">TeX</a> om wiskundige formules te schrijven. Zo wordt
+            <a href="https://nl.wikipedia.org/wiki/LaTeX">LaTeX</a> om wiskundige formules te schrijven. Zo wordt
             <code class="inline">$x^2$</code> bijvoorbeeld omgezet naar $x^2$. Je kunt ook gebruik maken van (een deel
             van) <a href="https://nl.wikipedia.org/wiki/Markdown">Markdown</a>. Afbeeldingen kun je invoegen met
             <code class="inline">![tekst voor als de afbeelding niet beschikbaar is](https://domein.nl/afbeelding.png)</code>.

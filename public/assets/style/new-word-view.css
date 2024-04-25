@@ -65,6 +65,8 @@
 
     width: 100%;
 
+    margin: 0 !important;
+
     border-radius: 3px;
     border: black 1px solid;
 }
@@ -127,8 +129,6 @@
     min-height: 20lh;
 
     padding: 3px;
-
-    white-space: pre-wrap;
 }
 
 #create-page-output {
