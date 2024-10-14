@@ -7,7 +7,7 @@ use App\Models\WordModel;
 use PDO;
 use PDOException;
 
-readonly class DatabaseHelper {
+readonly final class DatabaseHelper {
 
     private PDO $conn;
 
