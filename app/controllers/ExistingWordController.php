@@ -97,7 +97,6 @@ class ExistingWordController extends SuccessController {
             ]),
         ]);
         $response = curl_exec($curl);
-        curl_close($curl);
         if ($response === true) {
             return (object) ["success" => true];
         }
