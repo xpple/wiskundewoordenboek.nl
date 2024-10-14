@@ -3,7 +3,6 @@
 namespace App\Util;
 
 class DatabaseException extends HttpException {
-
     private function __construct(string $message) {
         parent::__construct($message, 500);
     }

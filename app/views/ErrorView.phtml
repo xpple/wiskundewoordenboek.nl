@@ -23,7 +23,7 @@ require Controller::getTemplatePath("head");
 require Controller::getTemplatePath("header");
 ?>
 <main id="main" class="text">
-    <h1><?= $this->cause instanceof HttpException ? $this->cause->getCode() . ": " . $this->cause->getMessage() : "Er heeft zich een onbekende fout opgetreden." ?></h1>
+    <h1><?= $this->cause instanceof HttpException ? $this->cause->getCode() . ": " . $this->cause->getMessage() : "Er heeft zich een onbekende fout opgedaan." ?></h1>
 </main>
 <?php
 require Controller::getTemplatePath("footer");

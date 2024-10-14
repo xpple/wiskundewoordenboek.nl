@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\WordModel;
-use App\Util\DatabaseHelper;
+use App\Util\ApiException;
+use App\Util\ApiHelper;
 use App\Util\HttpException;
 
 class LetterController extends SuccessController {
@@ -22,14 +23,16 @@ class LetterController extends SuccessController {
                 // perhaps implement later
                 throw HttpException::notFound();
             case 1:
-                $letter = array_shift($path);
-                if (mb_strlen($letter) !== 1) {
+                $this->letter = array_shift($path);
+                if (mb_strlen($this->letter) !== 1) {
                     throw HttpException::notFound();
                 }
-                $this->letter = $letter;
-
-                $databaseHelper = DatabaseHelper::getInstance();
-                $this->wordModels = $databaseHelper->getWordsForLetter($this->letter);
+                $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/letter/" . urlencode($this->letter));
+                $message = $json["errorMessage"] ?? null;
+                if ($message !== null) {
+                    throw ApiException::withMessage($message);
+                }
+                $this->wordModels = array_map(static fn($args) => new WordModel(...$args), $json);
                 require Controller::getViewPath("LetterView");
                 return null;
             default:

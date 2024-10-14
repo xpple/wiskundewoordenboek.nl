@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use Api\Util\DatabaseHelper;
 use App\Models\WordModel;
 use App\Util\DatabaseException;
-use App\Util\DatabaseHelper;
 use App\Util\HttpException;
 
 class ExistingWordController extends SuccessController {

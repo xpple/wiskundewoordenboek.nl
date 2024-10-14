@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Util;
+namespace Api\Util;
 
 use App\Controllers\Controller;
 use App\Models\WordModel;
+use App\Util\DatabaseException;
 use PDO;
 use PDOException;
 
@@ -16,7 +17,7 @@ readonly final class DatabaseHelper {
      */
     private function __construct() {
         try {
-            require Controller::getRoot() . "/app/login-data.php";
+            require Controller::getRoot() . "/api/login-data.php";
             /**
              * @var string $server
              * @var string $port

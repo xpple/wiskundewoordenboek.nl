@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
+use Api\Util\DatabaseHelper;
 use App\Models\WordModel;
-use App\Util\DatabaseHelper;
 use App\Util\HttpException;
 
 class IndexController extends SuccessController {

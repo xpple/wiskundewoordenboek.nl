@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\WordModel;
-use App\Util\DatabaseHelper;
+use App\Util\ApiException;
+use App\Util\ApiHelper;
 use App\Util\HttpException;
 
 class SearchController extends SuccessController {
@@ -28,8 +29,12 @@ class SearchController extends SuccessController {
                 throw HttpException::notFound();
             case 1:
                 $this->query = array_shift($path);
-                $databaseHelper = DatabaseHelper::getInstance();
-                $this->wordModels = $databaseHelper->getWordsForQuery($this->query);
+                $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/zoek/" . urlencode($this->query));
+                $message = $json["errorMessage"] ?? null;
+                if ($message !== null) {
+                    throw ApiException::withMessage($message);
+                }
+                $this->wordModels = array_map(static fn($args) => new WordModel(...$args), $json);
                 require Controller::getViewPath("SearchView");
                 return null;
             default:

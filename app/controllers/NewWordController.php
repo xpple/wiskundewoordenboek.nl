@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use api\util\DatabaseHelper;
 use App\Models\WordModel;
 use App\Util\DatabaseException;
-use App\Util\DatabaseHelper;
 use App\Util\HttpException;
 
 class NewWordController extends SuccessController {
@@ -34,7 +34,7 @@ class NewWordController extends SuccessController {
         $sanitisedWord = self::sanitize($this->word);
 
         if ($sanitisedWord !== $this->word) {
-            header("Location: /woord/$sanitisedWord/", true, 301);
+            header("Location: /woord/$sanitisedWord/", true, 308);
             exit;
         }
 

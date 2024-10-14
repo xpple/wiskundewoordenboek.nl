@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Util\DatabaseHelper;
+use App\Models\WordModel;
+use App\Util\ApiHelper;
 use App\Util\HttpException;
 
 class WordController extends SuccessController {
@@ -15,21 +16,12 @@ class WordController extends SuccessController {
             case 1:
                 $word = array_shift($path);
 
-                $databaseHelper = DatabaseHelper::getInstance();
-
-                $wordModel = $databaseHelper->getWord($word);
-
-                if ($wordModel === null) {
-                    $primaryDirectory = $databaseHelper->getPrimaryDirectoryForAlias($word);
-
-                    if ($primaryDirectory !== null) {
-                        header("Location: /woord/$primaryDirectory/", true, 301);
-                        exit;
-                    }
-
+                $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/woord/" . urlencode($word));
+                $message = $json["errorMessage"] ?? null;
+                if ($message !== null) {
                     return new NewWordController($this->getPath());
                 }
-
+                $wordModel = new WordModel(...$json);
                 return new ExistingWordController($this->getPath(), $wordModel);
             default:
                 throw HttpException::notFound();

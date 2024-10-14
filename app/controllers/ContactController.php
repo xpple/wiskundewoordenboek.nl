@@ -8,19 +8,21 @@ class ContactController extends SuccessController {
     #[\Override]
     public function loadAndDelegate(): ?Controller {
         $path = $this->getPath();
-        if (count($path) === 0) {
-            switch ($_SERVER['REQUEST_METHOD']) {
-                case 'GET':
-                    require Controller::getViewPath("ContactView");
-                    return null;
-                case 'POST':
-                    $result = $this->handlePost();
-                    header('Content-Type: application/json');
-                    echo json_encode($result);
-                    return null;
-            }
+        if (count($path) !== 0) {
+            throw HttpException::notFound();
         }
-        throw HttpException::notFound();
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
+                require Controller::getViewPath("ContactView");
+                return null;
+            case 'POST':
+                $result = $this->handlePost();
+                header('Content-Type: application/json');
+                echo json_encode($result);
+                return null;
+            default:
+                throw HttpException::methodNotSupported("GET, POST");
+        }
     }
 
     private function handlePost(): object {
