@@ -23,7 +23,7 @@ class WordController extends SuccessController {
                     $primaryDirectory = $databaseHelper->getPrimaryDirectoryForAlias($word);
 
                     if ($primaryDirectory !== null) {
-                        header("Location: /woord/$primaryDirectory/", true, 301);
+                        header("Location: /woord/$primaryDirectory/", true, 308);
                         exit;
                     }
 

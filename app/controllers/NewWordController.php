@@ -34,7 +34,7 @@ class NewWordController extends SuccessController {
         $sanitisedWord = self::sanitize($this->word);
 
         if ($sanitisedWord !== $this->word) {
-            header("Location: /woord/$sanitisedWord/", true, 301);
+            header("Location: /woord/$sanitisedWord/", true, 308);
             exit;
         }
 
@@ -117,7 +117,6 @@ class NewWordController extends SuccessController {
             ]),
         ]);
         $response = curl_exec($curl);
-        curl_close($curl);
         if ($response === true) {
             return (object) ["success" => true];
         }
