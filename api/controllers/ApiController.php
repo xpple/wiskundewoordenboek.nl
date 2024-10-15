@@ -1,10 +1,10 @@
 <?php
 
-namespace Api\Controllers;
+namespace api\controllers;
 
-use App\Controllers\Controller;
-use App\Controllers\SuccessController;
-use App\Util\HttpException;
+use app\controllers\Controller;
+use app\controllers\SuccessController;
+use app\util\HttpException;
 
 class ApiController extends SuccessController {
     #[\Override]
@@ -23,6 +23,8 @@ class ApiController extends SuccessController {
         $topDir = array_shift($path);
         return match ($topDir) {
             "letter" => new LetterApiController($path),
+            "random" => new RandomApiController($path),
+            "recent" => new RecentApiController($path),
             "woord" => new WordApiController($path),
             "zoek" => new SearchApiController($path),
             default => throw HttpException::notFound()

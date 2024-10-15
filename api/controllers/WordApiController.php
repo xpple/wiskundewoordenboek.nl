@@ -1,11 +1,11 @@
 <?php
 
-namespace Api\Controllers;
+namespace api\controllers;
 
-use Api\Util\DatabaseHelper;
-use App\Controllers\Controller;
-use App\Controllers\SuccessController;
-use App\Util\HttpException;
+use api\util\DatabaseHelper;
+use app\controllers\Controller;
+use app\controllers\SuccessController;
+use app\util\HttpException;
 
 class WordApiController extends SuccessController {
     #[\Override]
@@ -19,7 +19,7 @@ class WordApiController extends SuccessController {
                 $databaseHelper = DatabaseHelper::getInstance();
                 $wordModel = $databaseHelper->getWord($word);
                 if ($wordModel !== null) {
-                    header('Content-type: application/json');
+                    header('Content-Type: application/json');
                     echo json_encode($wordModel);
                     return null;
                 }

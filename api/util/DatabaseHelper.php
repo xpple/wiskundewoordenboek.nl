@@ -1,10 +1,10 @@
 <?php
 
-namespace Api\Util;
+namespace api\util;
 
-use App\Controllers\Controller;
-use App\Models\WordModel;
-use App\Util\DatabaseException;
+use app\controllers\Controller;
+use app\models\WordModel;
+use app\util\DatabaseException;
 use PDO;
 use PDOException;
 

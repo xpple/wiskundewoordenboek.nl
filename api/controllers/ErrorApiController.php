@@ -1,9 +1,9 @@
 <?php
 
-namespace Api\Controllers;
+namespace api\controllers;
 
-use App\Controllers\Controller;
-use App\Util\HttpException;
+use app\controllers\Controller;
+use app\util\HttpException;
 
 class ErrorApiController extends Controller {
 

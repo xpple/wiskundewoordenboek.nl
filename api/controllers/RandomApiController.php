@@ -7,17 +7,24 @@ use app\controllers\Controller;
 use app\controllers\SuccessController;
 use app\util\HttpException;
 
-class SearchApiController extends SuccessController {
+class RandomApiController extends SuccessController {
     #[\Override]
     public function loadAndDelegate(): ?Controller {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
-                throw HttpException::notFound();
-            case 1:
-                $query = array_shift($path);
                 $databaseHelper = DatabaseHelper::getInstance();
-                $wordModels = $databaseHelper->getWordsForQuery($query);
+                $wordModels = $databaseHelper->getRandomWords(3);
+                header('Content-Type: application/json');
+                echo json_encode($wordModels);
+                return null;
+            case 1:
+                $amount = array_shift($path);
+                if (($amount = intval($amount)) <= 0) {
+                    throw HttpException::notFound();
+                }
+                $databaseHelper = DatabaseHelper::getInstance();
+                $wordModels = $databaseHelper->getRandomWords($amount);
                 header('Content-Type: application/json');
                 echo json_encode($wordModels);
                 return null;

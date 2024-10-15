@@ -1,26 +1,20 @@
 <?php
 
-use api\controllers\ApiController;
-use api\controllers\ErrorApiController;
+use app\controllers\ErrorController;
+use app\controllers\IndexController;
 use app\util\HttpException;
+
+$f = fn($p) => $p;
 
 spl_autoload_register(static function ($class) {
     static $root;
-    static $appRoot; // to use classes from `main`
-    if ($root === null or $appRoot === null) {
+    if ($root == null) {
         $root = dirname($_SERVER['DOCUMENT_ROOT']);
-        $appRoot = dirname($_SERVER['DOCUMENT_ROOT']) . "/main";
     }
     $parts = explode('\\', $class);
     $filename = array_pop($parts);
     $parts = strtolower(implode('/', $parts));
-    if (str_starts_with($parts, "api")) {
-        $filePath = $root . '/' . $parts . '/' . $filename . '.php';
-    } elseif (str_starts_with($parts, "app")) {
-        $filePath = $appRoot . '/' . $parts . '/' . $filename . '.php';
-    } else {
-        return;
-    }
+    $filePath = $root . '/' . $parts . '/' . $filename . '.php';
     if (is_file($filePath)) {
         require $filePath;
     }
@@ -38,11 +32,11 @@ try {
         array_pop($parts);
     }
     $parts = array_map(urldecode(...), $parts);
-    $controller = new ApiController($parts);
+    $controller = new IndexController($parts);
     do {
         $controller = $controller->loadAndDelegate();
     } while ($controller !== null);
 } catch (HttpException $e) {
-    $controller = new ErrorApiController($e);
+    $controller = new ErrorController($e);
     $controller->loadAndDelegate();
 }

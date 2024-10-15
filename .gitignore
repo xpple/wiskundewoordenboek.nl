@@ -9,5 +9,5 @@
 
 # secrets
 /api/login-data.php
-/app/public-webhook.php
-/app/private-webhook.php
+/main/app/public-webhook.php
+/main/app/private-webhook.php
