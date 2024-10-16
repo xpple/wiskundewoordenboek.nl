@@ -17,6 +17,25 @@ class ApiController extends SuccessController {
             header('Content-Type: application/json');
             echo json_encode([
                 "message" => "Welkom!",
+                "routes" => [ // TODO de-hardcode
+                    "letter" => [
+                        "/<string>"
+                    ],
+                    "random" => [
+                        "/",
+                        "/<int>"
+                    ],
+                    "recent" => [
+                        "/",
+                        "/<int>"
+                    ],
+                    "woord" => [
+                        "/<string>"
+                    ],
+                    "zoek" => [
+                        "/<string>"
+                    ],
+                ]
             ]);
             return null;
         }
