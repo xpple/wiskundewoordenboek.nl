@@ -19,6 +19,10 @@ final class ApiHelper {
         if (curl_errno($curl) !== 0) {
             throw ApiException::unknownError();
         }
-        return json_decode($response, true);
+        $json = json_decode($response, true);
+        if ($json === null) {
+            throw ApiException::unknownError();
+        }
+        return $json;
     }
 }
