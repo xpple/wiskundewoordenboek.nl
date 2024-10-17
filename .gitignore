@@ -8,6 +8,6 @@
 .run/
 
 # secrets
-/app/login-data.php
-/app/public-webhook.php
-/app/private-webhook.php
+/api/login-data.php
+/main/app/public-webhook.php
+/main/app/private-webhook.php

@@ -1,0 +1,42 @@
+<?php
+
+use app\views\ViewSettings;
+
+/* @var ViewSettings $settings */
+?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <title><?= $settings->title ?></title>
+    <link rel="stylesheet" href="/assets/style/templates/reset.css">
+<?php
+foreach ($settings->stylesheets as $stylesheet) {
+    echo <<<HTML
+    <link rel="stylesheet" href="/assets/style/$stylesheet.css">\n
+HTML;
+}
+?>
+
+    <script type="text/javascript" src="/assets/script/util.js"></script>
+
+<?php if ($settings->markdownEnabled): ?>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.1/marked.min.js" defer></script>
+    <script type="text/javascript" src="/assets/script/marked-config.js" defer></script>
+<?php endif ?>
+<?php if ($settings->mathsEnabled): ?>
+    <script type="text/javascript" src="/assets/script/mathjax-config.js" defer></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" defer></script>
+<?php endif ?>
+
+<?php
+foreach ($settings->scripts as $script) {
+    echo <<<HTML
+    <script type="text/javascript" src="/assets/script/$script.js" async></script>\n
+HTML;
+    }
+?>
+</head>

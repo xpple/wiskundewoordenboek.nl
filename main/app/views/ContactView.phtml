@@ -1,0 +1,45 @@
+<?php
+
+use app\controllers\ContactController;
+use app\controllers\Controller;
+use app\views\ViewSettings;
+
+/* @var ContactController $this */
+
+$settings = new ViewSettings(
+    title: "Contact | Wiskunde Woordenboek",
+    stylesheets: ["templates/header", "templates/footer", "contact-view"],
+    scripts: ["heading-anchors", "required-inputs", "contact-view/submit-contact"],
+);
+?>
+<!DOCTYPE html>
+<html lang="nl">
+<?php
+require Controller::getTemplatePath("head");
+?>
+<body>
+<?php
+require Controller::getTemplatePath("header");
+?>
+<main id="main" class="text">
+    <h1 id="contact">Contact</h1>
+    <p>
+        Je kunt ons bereiken door een e-mail te sturen naar <a href="mailto:info@wiskundewoordenboek.nl">info@wiskundewoordenboek.nl</a>
+        of door onderstaand formulier in te vullen.
+    </p>
+    <form id="message-form" method="post">
+        <label for="name-input">Naam</label>
+        <input id="name-input" name="name" type="text" maxlength="256" required>
+        <label for="email-input">E-mail</label>
+        <input id="email-input" name="email" type="email" maxlength="1024" required>
+        <label for="message-textarea">Bericht</label>
+        <textarea id="message-textarea" name="message" cols="30" rows="10" maxlength="1024" required></textarea>
+        <button id="submit-button" type="submit">Indienen</button>
+    </form>
+    <output id="message-output" form="message-form"></output>
+</main>
+<?php
+require Controller::getTemplatePath("footer");
+?>
+</body>
+</html>
