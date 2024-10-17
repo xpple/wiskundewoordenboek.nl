@@ -19,8 +19,8 @@ class RandomApiController extends SuccessController {
                 echo json_encode($wordModels);
                 return null;
             case 1:
-                $amount = array_shift($path);
-                if (($amount = intval($amount)) <= 0) {
+                $amount = intval(array_shift($path));
+                if ($amount <= 0) {
                     throw HttpException::notFound();
                 }
                 $databaseHelper = DatabaseHelper::getInstance();
