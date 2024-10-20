@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\WordModel;
 use app\util\ApiException;
 use app\util\ApiHelper;
+use app\util\Constants;
 use app\util\HttpException;
 
 class IndexController extends SuccessController {
@@ -22,13 +23,13 @@ class IndexController extends SuccessController {
     public function loadAndDelegate(): ?Controller {
         $path = $this->getPath();
         if (count($path) === 0) {
-            $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/random/");
+            $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/random/");
             $message = $json["errorMessage"] ?? null;
             if ($message !== null) {
                 throw ApiException::withMessage($message);
             }
             $this->randomWords = array_map(static fn($args) => new WordModel(...$args), $json);
-            $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/recent/");
+            $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
             $message = $json["errorMessage"] ?? null;
             if ($message !== null) {
                 throw ApiException::withMessage($message);

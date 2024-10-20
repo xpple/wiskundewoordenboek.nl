@@ -4,6 +4,9 @@
 *.ipr
 *.iws
 
+# .env
+.env
+
 # secrets
 /api/login-data.php
 /main/app/public-webhook.php

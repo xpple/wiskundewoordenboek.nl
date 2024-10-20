@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\WordModel;
 use app\util\ApiException;
 use app\util\ApiHelper;
+use app\util\Constants;
 use app\util\HttpException;
 
 class SearchController extends SuccessController {
@@ -29,7 +30,7 @@ class SearchController extends SuccessController {
                 throw HttpException::notFound();
             case 1:
                 $this->query = array_shift($path);
-                $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/zoek/" . urlencode($this->query));
+                $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/zoek/" . urlencode($this->query));
                 $message = $json["errorMessage"] ?? null;
                 if ($message !== null) {
                     throw ApiException::withMessage($message);

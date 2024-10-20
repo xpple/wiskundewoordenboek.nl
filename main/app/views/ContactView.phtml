@@ -2,6 +2,7 @@
 
 use app\controllers\ContactController;
 use app\controllers\Controller;
+use app\util\Constants;
 use app\views\ViewSettings;
 
 /* @var ContactController $this */
@@ -31,9 +32,9 @@ require Controller::getTemplatePath("header");
         <label for="name-input">Naam</label>
         <input id="name-input" name="name" type="text" maxlength="256" required>
         <label for="email-input">E-mail</label>
-        <input id="email-input" name="email" type="email" maxlength="1024" required>
+        <input id="email-input" name="email" type="email" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>" required>
         <label for="message-textarea">Bericht</label>
-        <textarea id="message-textarea" name="message" cols="30" rows="10" maxlength="1024" required></textarea>
+        <textarea id="message-textarea" name="message" cols="30" rows="10" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>" required></textarea>
         <button id="submit-button" type="submit">Indienen</button>
     </form>
     <output id="message-output" form="message-form"></output>

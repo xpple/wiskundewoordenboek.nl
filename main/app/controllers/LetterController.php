@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\WordModel;
 use app\util\ApiException;
 use app\util\ApiHelper;
+use app\util\Constants;
 use app\util\HttpException;
 
 class LetterController extends SuccessController {
@@ -27,7 +28,7 @@ class LetterController extends SuccessController {
                 if (mb_strlen($this->letter) !== 1) {
                     throw HttpException::notFound();
                 }
-                $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/letter/" . urlencode($this->letter));
+                $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/letter/" . urlencode($this->letter));
                 $message = $json["errorMessage"] ?? null;
                 if ($message !== null) {
                     throw ApiException::withMessage($message);

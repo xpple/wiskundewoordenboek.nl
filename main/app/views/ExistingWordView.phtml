@@ -2,6 +2,7 @@
 
 use app\controllers\Controller;
 use app\controllers\ExistingWordController;
+use app\util\Constants;
 use app\views\ViewSettings;
 
 global $f;
@@ -78,12 +79,12 @@ HTML;
                     <button id="preview-button" type="button">Voorbeeld</button>
                 </div>
             </div>
-            <textarea id="changes-textarea" name="changes" rows="10" maxlength="1024" required></textarea>
+            <textarea id="changes-textarea" name="changes" rows="10" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>" required></textarea>
             <div id="changes-div" style="display: none"></div>
             <label for="description-input">Beschrijving</label>
-            <input id="description-input" name="description" type="text" maxlength="1024" required>
+            <input id="description-input" name="description" type="text" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>" required>
             <label for="email-input">E-mailadres</label>
-            <input id="email-input" name="email" type="email" maxlength="1024">
+            <input id="email-input" name="email" type="email" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>">
             <button id="submit-button" type="submit">Indienen</button>
             <input name="meaning" value="<?= !$formal ? "standaard" : "formeel" ?>" type="hidden">
         </form>

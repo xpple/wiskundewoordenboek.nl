@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\util\Constants;
 use app\util\HttpException;
 
 class ContactController extends SuccessController {
@@ -37,8 +38,8 @@ class ContactController extends SuccessController {
         if ($message == null) {
             return (object) ["success" => false, "errorMessage" => "Bericht mag niet leeg zijn!"];
         }
-        if (strlen($message) > 1024) {
-            return (object) ["success" => false, "errorMessage" => "Bericht mag niet langer dan 1024 karakters zijn!"];
+        if (strlen($message) > Constants::DISCORD_EMBED_MAX_FIELD_VALUE) {
+            return (object) ["success" => false, "errorMessage" => "Bericht mag niet langer dan " . Constants::DISCORD_EMBED_MAX_FIELD_VALUE . " karakters zijn!"];
         }
         $email = ($_POST["email"] ?? null) ? "`{$_POST["email"]}`" : null;
         if ($email == null) {

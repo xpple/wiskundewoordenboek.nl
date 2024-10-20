@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\WordModel;
 use app\util\ApiHelper;
+use app\util\Constants;
 use app\util\HttpException;
 
 class WordController extends SuccessController {
@@ -16,7 +17,7 @@ class WordController extends SuccessController {
             case 1:
                 $word = array_shift($path);
 
-                $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/woord/" . urlencode($word));
+                $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/woord/" . urlencode($word));
                 $message = $json["errorMessage"] ?? null;
                 if ($message !== null) {
                     return new NewWordController($this->getPath());

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\WordModel;
 use app\util\ApiException;
 use app\util\ApiHelper;
+use app\util\Constants;
 use app\util\HttpException;
 
 class NewWordController extends SuccessController {
@@ -26,7 +27,7 @@ class NewWordController extends SuccessController {
     public function __construct(array $path) {
         parent::__construct($path);
         $this->word = $path[0];
-        $json = ApiHelper::fetchJson("https://api.wiskundewoordenboek.nl/recent/");
+        $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
         $message = $json["errorMessage"] ?? null;
         if ($message !== null) {
             throw ApiException::withMessage($message);
@@ -74,19 +75,19 @@ class NewWordController extends SuccessController {
         if ($content === null) {
             return (object) ["success" => false, "errorMessage" => "Inhoud mag niet leeg zijn!"];
         }
-        if (strlen($content) > 1024) {
-            return (object) ["success" => false, "errorMessage" => "Inhoud mag niet langer dan 1024 karakters zijn!"];
+        if (strlen($content) > Constants::DISCORD_EMBED_MAX_FIELD_VALUE) {
+            return (object) ["success" => false, "errorMessage" => "Inhoud mag niet langer dan " . Constants::DISCORD_EMBED_MAX_FIELD_VALUE . " karakters zijn!"];
         }
         $description = $_POST["description"] ?? null ?: null;
         if ($description === null) {
             return (object) ["success" => false, "errorMessage" => "Beschrijving mag niet leeg zijn!"];
         }
-        if (strlen($description) > 1024) {
-            return (object) ["success" => false, "errorMessage" => "Beschrijving mag niet langer dan 1024 karakters zijn!"];
+        if (strlen($description) > Constants::DISCORD_EMBED_MAX_FIELD_VALUE) {
+            return (object) ["success" => false, "errorMessage" => "Beschrijving mag niet langer dan " . Constants::DISCORD_EMBED_MAX_FIELD_VALUE . " karakters zijn!"];
         }
         $email = ($_POST["email"] ?? null) ? "`{$_POST["email"]}`" : "Geen e-mailadres opgegeven";
-        if (strlen($email) > 1024) {
-            return (object) ["success" => false, "errorMessage" => "E-mailadres mag niet langer dan 1024 karakters zijn!"];
+        if (strlen($email) > Constants::DISCORD_EMBED_MAX_FIELD_VALUE) {
+            return (object) ["success" => false, "errorMessage" => "E-mailadres mag niet langer dan " . Constants::DISCORD_EMBED_MAX_FIELD_VALUE . " karakters zijn!"];
         }
 
         $curl = curl_init();
