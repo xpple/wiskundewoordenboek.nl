@@ -4,9 +4,6 @@
 *.ipr
 *.iws
 
-# run configuration
-.run/
-
 # secrets
 /api/login-data.php
 /main/app/public-webhook.php
