@@ -42,5 +42,6 @@ To test the website locally, do the following:
    ```shell
    echo "WW_ENVIRONMENT=PROD" > .env
    ```
-4. Run the "launch API" task.
-5. Run the "launch main" task.
+4. Open the `main` directory as PhpStorm project, and attach `api` as project.
+5. Run the "launch API" task.
+6. Run the "launch main" task.
