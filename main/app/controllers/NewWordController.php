@@ -18,13 +18,10 @@ class NewWordController extends SuccessController {
     private readonly array $recentlyAddedWords;
 
     /**
-     * @param string[] $path
-     *
      * @throws ApiException
      */
-    public function __construct(array $path) {
-        parent::__construct($path);
-        $this->word = $path[0];
+    public function __construct($word) {
+        $this->word = $word;
         $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
         $message = $json["errorMessage"] ?? null;
         if ($message !== null) {
@@ -34,7 +31,7 @@ class NewWordController extends SuccessController {
     }
 
     #[\Override]
-    public function handle(): void {
+    public function handle(array $path): void {
         $sanitisedWord = self::sanitize($this->word);
 
         if ($sanitisedWord !== $this->word) {

@@ -38,9 +38,9 @@ try {
         array_pop($parts);
     }
     $parts = array_map(urldecode(...), $parts);
-    $controller = new ApiController($parts);
-    $controller->handle();
+    $controller = new ApiController();
+    $controller->handle($parts);
 } catch (HttpException $e) {
     $controller = new ErrorApiController($e);
-    $controller->handle();
+    $controller->handle($parts ?? []);
 }

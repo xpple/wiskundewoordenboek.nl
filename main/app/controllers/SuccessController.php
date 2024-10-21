@@ -5,25 +5,8 @@ namespace app\controllers;
 use app\util\HttpException;
 
 abstract class SuccessController extends Controller {
-    /* @var callable(string[]): SuccessController[] */
+    /* @var callable(string[]): void[] */
     private array $routes = [];
-
-    /* @var string[] */
-    private readonly array $path;
-
-    /**
-     * @param string[] $path
-     */
-    public function __construct(array $path = []) {
-        $this->path = $path;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getPath(): array {
-        return $this->path;
-    }
 
     /**
      * @return string[]
@@ -34,16 +17,16 @@ abstract class SuccessController extends Controller {
 
     /**
      * @param string $route
-     * @param callable(string[]): SuccessController $controller
+     * @param callable(string[]): void $handler
      * @return void
      */
-    public function route(string $route, callable $controller): void {
-        $this->routes[$route] = $controller;
+    public function route(string $route, callable $handler): void {
+        $this->routes[$route] = $handler;
     }
 
     /**
      * @param string $route
-     * @return callable(string[]): SuccessController
+     * @return callable(string[]): void
      * @throws HttpException
      */
     public function getController(string $route): callable {
@@ -53,5 +36,5 @@ abstract class SuccessController extends Controller {
     /**
      * @throws HttpException
      */
-    public abstract function handle(): void;
+    public abstract function handle(array $path): void;
 }

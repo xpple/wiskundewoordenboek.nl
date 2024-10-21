@@ -7,8 +7,7 @@ use app\util\HttpException;
 
 class ContactController extends SuccessController {
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         if (count($path) !== 0) {
             throw HttpException::notFound();
         }

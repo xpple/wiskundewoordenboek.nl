@@ -15,8 +15,7 @@ class LetterController extends SuccessController {
     private readonly array $wordModels;
 
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         switch (count($path)) {
             case 0:
                 // perhaps implement later

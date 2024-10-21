@@ -16,8 +16,7 @@ class SearchController extends SuccessController {
     private readonly array $wordModels;
 
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         switch (count($path)) {
             case 0:
                 if (array_key_exists("query", $_POST)) {

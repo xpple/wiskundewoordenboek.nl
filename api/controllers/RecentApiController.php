@@ -8,8 +8,7 @@ use app\util\HttpException;
 
 class RecentApiController extends SuccessController {
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         switch (count($path)) {
             case 0:
                 $databaseHelper = DatabaseHelper::getInstance();

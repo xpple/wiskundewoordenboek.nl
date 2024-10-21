@@ -8,8 +8,7 @@ use app\util\HttpException;
 
 class SearchApiController extends SuccessController {
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         switch (count($path)) {
             case 0:
                 throw HttpException::notFound();

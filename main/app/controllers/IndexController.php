@@ -14,18 +14,16 @@ class IndexController extends SuccessController {
     /* @var WordModel[] */
     private readonly array $recentlyAddedWords;
 
-    public function __construct($parts) {
-        parent::__construct($parts);
-        $this->route("contact", fn($path) => new ContactController($path));
-        $this->route("letter", fn($path) => new LetterController($path));
-        $this->route("over-ons", fn($path) => new AboutUsController($path));
-        $this->route("woord", fn($path) => new WordController($path));
-        $this->route("zoek", fn($path) => new SearchController($path));
+    public function __construct() {
+        $this->route("contact", (new ContactController())->handle(...));
+        $this->route("letter", (new LetterController())->handle(...));
+        $this->route("over-ons", (new AboutUsController())->handle(...));
+        $this->route("woord", (new WordController())->handle(...));
+        $this->route("zoek", (new SearchController())->handle(...));
     }
 
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         if (count($path) === 0) {
             $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/random/");
             $message = $json["errorMessage"] ?? null;
@@ -43,6 +41,6 @@ class IndexController extends SuccessController {
             return;
         }
         $topDir = array_shift($path);
-        $this->getController($topDir)($path)->handle();
+        $this->getController($topDir)($path);
     }
 }

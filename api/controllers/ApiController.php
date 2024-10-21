@@ -6,18 +6,16 @@ use app\controllers\SuccessController;
 use app\util\HttpException;
 
 class ApiController extends SuccessController {
-    public function __construct(array $parts = []) {
-        parent::__construct($parts);
-        $this->route("letter", fn($path) => new LetterApiController($path));
-        $this->route("random", fn($path) => new RandomApiController($path));
-        $this->route("recent", fn($path) => new RecentApiController($path));
-        $this->route("woord", fn($path) => new WordApiController($path));
-        $this->route("zoek", fn($path) => new SearchApiController($path));
+    public function __construct() {
+        $this->route("letter", (new LetterApiController())->handle(...));
+        $this->route("random", (new RandomApiController())->handle(...));
+        $this->route("recent", (new RecentApiController())->handle(...));
+        $this->route("woord", (new WordApiController())->handle(...));
+        $this->route("zoek", (new SearchApiController())->handle(...));
     }
 
     #[\Override]
-    public function handle(): void {
-        $path = $this->getPath();
+    public function handle(array $path): void {
         if (count($path) === 0) {
             if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                 throw HttpException::methodNotSupported("GET");
@@ -30,6 +28,6 @@ class ApiController extends SuccessController {
             return;
         }
         $topDir = array_shift($path);
-        $this->getController($topDir)($path)->handle();
+        $this->getController($topDir)($path);
     }
 }

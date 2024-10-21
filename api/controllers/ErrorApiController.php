@@ -14,7 +14,7 @@ class ErrorApiController extends Controller {
     }
 
     #[\Override]
-    public function handle(): void {
+    public function handle(array $path): void {
         if ($this->cause instanceof HttpException) {
             $responseCode = $this->cause->getCode();
             $message = $this->cause->getMessage();

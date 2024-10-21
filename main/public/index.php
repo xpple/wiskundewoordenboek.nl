@@ -32,9 +32,9 @@ try {
         array_pop($parts);
     }
     $parts = array_map(urldecode(...), $parts);
-    $controller = new IndexController($parts);
-    $controller->handle();
+    $controller = new IndexController();
+    $controller->handle($parts);
 } catch (HttpException $e) {
     $controller = new ErrorController($e);
-    $controller->handle();
+    $controller->handle($parts ?? []);
 }

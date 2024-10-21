@@ -13,7 +13,7 @@ class ErrorController extends Controller {
     }
 
     #[\Override]
-    public function handle(): void {
+    public function handle(array $path): void {
         if ($this->cause instanceof HttpException) {
             http_response_code($this->cause->getCode());
         } else {

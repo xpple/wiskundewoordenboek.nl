@@ -15,13 +15,11 @@ class ExistingWordController extends SuccessController {
     private readonly WordModel $wordModel;
 
     /**
-     * @param string[] $path
      * @param WordModel $wordModel
      *
      * @throws ApiException
      */
-    public function __construct(array $path, WordModel $wordModel) {
-        parent::__construct($path);
+    public function __construct(WordModel $wordModel) {
         $this->wordModel = $wordModel;
         $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
         $message = $json["errorMessage"] ?? null;
@@ -32,7 +30,7 @@ class ExistingWordController extends SuccessController {
     }
 
     #[\Override]
-    public function handle(): void {
+    public function handle(array $path): void {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 require Controller::getViewPath("ExistingWordView");

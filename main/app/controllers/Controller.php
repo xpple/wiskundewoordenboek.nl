@@ -3,7 +3,11 @@
 namespace app\controllers;
 
 abstract class Controller {
-    public abstract function handle(): void;
+    /**
+     * @param string[] $path
+     * @return void
+     */
+    public abstract function handle(array $path): void;
 
     public static final function getRoot(): string {
         return dirname($_SERVER['DOCUMENT_ROOT']);
