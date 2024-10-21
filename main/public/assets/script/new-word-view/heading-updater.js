@@ -8,13 +8,12 @@ const titleHeadingAnchor = titleHeading.querySelector("a.anchor")
  */
 const titleInput = document.getElementById("title-input");
 
-titleInput.addEventListener('input', () => {
+const updater = () => {
     const value = sanitize(titleInput.value);
     window.history.pushState(value, null, `/woord/${value}/`);
     document.title = value + " creëren | Wiskunde Woordenboek";
     titleHeading.id = value;
     titleHeadingAnchor.href = `#${value}`;
-    titleInput.defaultValue = value;
-});
-
-
+}
+titleInput.addEventListener('input', updater);
+updater();

@@ -14,25 +14,20 @@ class ExistingWordController extends SuccessController {
 
     private readonly WordModel $wordModel;
 
-    /**
-     * @param WordModel $wordModel
-     *
-     * @throws ApiException
-     */
     public function __construct(WordModel $wordModel) {
         $this->wordModel = $wordModel;
-        $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
-        $message = $json["errorMessage"] ?? null;
-        if ($message !== null) {
-            throw ApiException::withMessage($message);
-        }
-        $this->recentlyAddedWords = array_map(static fn($args) => new WordModel(...$args), $json);
     }
 
     #[\Override]
     public function handle(array $path): void {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
+                $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
+                $message = $json["errorMessage"] ?? null;
+                if ($message !== null) {
+                    throw ApiException::withMessage($message);
+                }
+                $this->recentlyAddedWords = array_map(static fn($args) => new WordModel(...$args), $json);
                 require Controller::getViewPath("ExistingWordView");
                 return;
             case 'POST':

@@ -17,30 +17,17 @@ class NewWordController extends SuccessController {
     /* @var WordModel[] */
     private readonly array $recentlyAddedWords;
 
-    /**
-     * @throws ApiException
-     */
-    public function __construct($word) {
-        $this->word = $word;
-        $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
-        $message = $json["errorMessage"] ?? null;
-        if ($message !== null) {
-            throw ApiException::withMessage($message);
-        }
-        $this->recentlyAddedWords = array_map(static fn($args) => new WordModel(...$args), $json);
-    }
-
     #[\Override]
     public function handle(array $path): void {
-        $sanitisedWord = self::sanitize($this->word);
-
-        if ($sanitisedWord !== $this->word) {
-            header("Location: /woord/$sanitisedWord/", true, 308);
-            exit;
-        }
-
+        $this->word = $path[0];
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
+                $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/recent/");
+                $message = $json["errorMessage"] ?? null;
+                if ($message !== null) {
+                    throw ApiException::withMessage($message);
+                }
+                $this->recentlyAddedWords = array_map(static fn($args) => new WordModel(...$args), $json);
                 require Controller::getViewPath("NewWordView");
                 return;
             case 'POST':

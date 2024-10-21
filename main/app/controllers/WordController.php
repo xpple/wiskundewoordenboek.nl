@@ -13,7 +13,7 @@ class WordController extends SuccessController {
         switch (count($path)) {
             case 0:
                 $controller = new NewWordController();
-                $controller->handle([""]);
+                $controller->handle(["Nieuw woord"]);
                 return;
             case 1:
                 $word = array_shift($path);
@@ -21,8 +21,8 @@ class WordController extends SuccessController {
                 $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/woord/" . urlencode($word));
                 $message = $json["errorMessage"] ?? null;
                 if ($message !== null) {
-                    $controller = new NewWordController($word);
-                    $controller->handle([]);
+                    $controller = new NewWordController();
+                    $controller->handle([$word]);
                     return;
                 }
                 $wordModel = new WordModel(...$json);
