@@ -39,10 +39,8 @@ try {
     }
     $parts = array_map(urldecode(...), $parts);
     $controller = new ApiController($parts);
-    do {
-        $controller = $controller->loadAndDelegate();
-    } while ($controller !== null);
+    $controller->handle();
 } catch (HttpException $e) {
     $controller = new ErrorApiController($e);
-    $controller->loadAndDelegate();
+    $controller->handle();
 }

@@ -2,13 +2,21 @@
 
 namespace api\controllers;
 
-use app\controllers\Controller;
 use app\controllers\SuccessController;
 use app\util\HttpException;
 
 class ApiController extends SuccessController {
+    public function __construct(array $parts = []) {
+        parent::__construct($parts);
+        $this->route("letter", fn($path) => new LetterApiController($path));
+        $this->route("random", fn($path) => new RandomApiController($path));
+        $this->route("recent", fn($path) => new RecentApiController($path));
+        $this->route("woord", fn($path) => new WordApiController($path));
+        $this->route("zoek", fn($path) => new SearchApiController($path));
+    }
+
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         if (count($path) === 0) {
             if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -17,36 +25,11 @@ class ApiController extends SuccessController {
             header('Content-Type: application/json');
             echo json_encode([
                 "message" => "Welkom!",
-                "routes" => [ // TODO de-hardcode
-                    "letter" => [
-                        "/<string>"
-                    ],
-                    "random" => [
-                        "/",
-                        "/<int>"
-                    ],
-                    "recent" => [
-                        "/",
-                        "/<int>"
-                    ],
-                    "woord" => [
-                        "/<string>"
-                    ],
-                    "zoek" => [
-                        "/<string>"
-                    ],
-                ]
+                "routes" => $this->getRoutes(),
             ]);
-            return null;
+            return;
         }
         $topDir = array_shift($path);
-        return match ($topDir) {
-            "letter" => new LetterApiController($path),
-            "random" => new RandomApiController($path),
-            "recent" => new RecentApiController($path),
-            "woord" => new WordApiController($path),
-            "zoek" => new SearchApiController($path),
-            default => throw HttpException::notFound()
-        };
+        $this->getController($topDir)($path)->handle();
     }
 }

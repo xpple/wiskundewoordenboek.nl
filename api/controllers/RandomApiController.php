@@ -3,13 +3,12 @@
 namespace api\controllers;
 
 use api\util\DatabaseHelper;
-use app\controllers\Controller;
 use app\controllers\SuccessController;
 use app\util\HttpException;
 
 class RandomApiController extends SuccessController {
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
@@ -17,7 +16,7 @@ class RandomApiController extends SuccessController {
                 $wordModels = $databaseHelper->getRandomWords(3);
                 header('Content-Type: application/json');
                 echo json_encode($wordModels);
-                return null;
+                return;
             case 1:
                 $amount = intval(array_shift($path));
                 if ($amount <= 0) {
@@ -27,7 +26,7 @@ class RandomApiController extends SuccessController {
                 $wordModels = $databaseHelper->getRandomWords($amount);
                 header('Content-Type: application/json');
                 echo json_encode($wordModels);
-                return null;
+                return;
             default:
                 throw HttpException::notFound();
         }

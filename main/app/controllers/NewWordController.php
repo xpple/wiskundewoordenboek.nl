@@ -14,9 +14,7 @@ class NewWordController extends SuccessController {
 
     private readonly string $word;
 
-    /**
-     * @var WordModel[]
-     */
+    /* @var WordModel[] */
     private readonly array $recentlyAddedWords;
 
     /**
@@ -36,7 +34,7 @@ class NewWordController extends SuccessController {
     }
 
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $sanitisedWord = self::sanitize($this->word);
 
         if ($sanitisedWord !== $this->word) {
@@ -47,12 +45,12 @@ class NewWordController extends SuccessController {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 require Controller::getViewPath("NewWordView");
-                return null;
+                return;
             case 'POST':
                 $result = $this->handlePost();
                 header('Content-Type: application/json');
                 echo json_encode($result);
-                return null;
+                return;
             default:
                 throw HttpException::methodNotSupported("GET, POST");
         }

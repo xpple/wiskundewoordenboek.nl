@@ -33,10 +33,8 @@ try {
     }
     $parts = array_map(urldecode(...), $parts);
     $controller = new IndexController($parts);
-    do {
-        $controller = $controller->loadAndDelegate();
-    } while ($controller !== null);
+    $controller->handle();
 } catch (HttpException $e) {
     $controller = new ErrorController($e);
-    $controller->loadAndDelegate();
+    $controller->handle();
 }

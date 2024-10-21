@@ -7,7 +7,7 @@ use app\util\HttpException;
 
 class ContactController extends SuccessController {
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         if (count($path) !== 0) {
             throw HttpException::notFound();
@@ -15,12 +15,12 @@ class ContactController extends SuccessController {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 require Controller::getViewPath("ContactView");
-                return null;
+                return;
             case 'POST':
                 $result = $this->handlePost();
                 header('Content-Type: application/json');
                 echo json_encode($result);
-                return null;
+                return;
             default:
                 throw HttpException::methodNotSupported("GET, POST");
         }

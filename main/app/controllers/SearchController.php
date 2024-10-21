@@ -12,13 +12,11 @@ class SearchController extends SuccessController {
 
     private readonly string $query;
 
-    /**
-     * @var WordModel[] $wordModels
-     */
+    /* @var WordModel[] */
     private readonly array $wordModels;
 
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
@@ -37,7 +35,7 @@ class SearchController extends SuccessController {
                 }
                 $this->wordModels = array_map(static fn($args) => new WordModel(...$args), $json);
                 require Controller::getViewPath("SearchView");
-                return null;
+                return;
             default:
                 throw HttpException::notFound();
         }

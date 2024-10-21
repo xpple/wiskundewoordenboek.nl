@@ -14,7 +14,7 @@ class ErrorApiController extends Controller {
     }
 
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         if ($this->cause instanceof HttpException) {
             $responseCode = $this->cause->getCode();
             $message = $this->cause->getMessage();
@@ -26,8 +26,7 @@ class ErrorApiController extends Controller {
         header('Content-Type: application/json');
         echo json_encode([
             "errorCode" => $responseCode,
-            "errorMessage" => $message
+            "errorMessage" => $message,
         ]);
-        return null;
     }
 }

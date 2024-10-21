@@ -3,13 +3,12 @@
 namespace api\controllers;
 
 use api\util\DatabaseHelper;
-use app\controllers\Controller;
 use app\controllers\SuccessController;
 use app\util\HttpException;
 
 class LetterApiController extends SuccessController {
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
@@ -23,7 +22,7 @@ class LetterApiController extends SuccessController {
                 $wordModels = $databaseHelper->getWordsForLetter($letter);
                 header('Content-Type: application/json');
                 echo json_encode($wordModels);
-                return null;
+                return;
             default:
                 throw HttpException::notFound();
         }

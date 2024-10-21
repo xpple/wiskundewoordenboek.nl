@@ -9,21 +9,27 @@ use app\util\HttpException;
 
 class WordController extends SuccessController {
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
-                return new NewWordController([""]);
+                $controller = new NewWordController([""]);
+                $controller->handle();
+                return;
             case 1:
                 $word = array_shift($path);
 
                 $json = ApiHelper::fetchJson(Constants::getApiBaseUrl() . "/woord/" . urlencode($word));
                 $message = $json["errorMessage"] ?? null;
                 if ($message !== null) {
-                    return new NewWordController($this->getPath());
+                    $controller = new NewWordController($this->getPath());
+                    $controller->handle();
+                    return;
                 }
                 $wordModel = new WordModel(...$json);
-                return new ExistingWordController($this->getPath(), $wordModel);
+                $controller = new ExistingWordController($this->getPath(), $wordModel);
+                $controller->handle();
+                return;
             default:
                 throw HttpException::notFound();
         }

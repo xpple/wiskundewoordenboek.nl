@@ -11,13 +11,11 @@ use app\util\HttpException;
 class LetterController extends SuccessController {
     private readonly string $letter;
 
-    /**
-     * @var WordModel[] $wordModels
-     */
+    /* @var WordModel[] */
     private readonly array $wordModels;
 
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         $path = $this->getPath();
         switch (count($path)) {
             case 0:
@@ -35,7 +33,7 @@ class LetterController extends SuccessController {
                 }
                 $this->wordModels = array_map(static fn($args) => new WordModel(...$args), $json);
                 require Controller::getViewPath("LetterView");
-                return null;
+                return;
             default:
                 throw HttpException::notFound();
         }

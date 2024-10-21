@@ -13,13 +13,12 @@ class ErrorController extends Controller {
     }
 
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         if ($this->cause instanceof HttpException) {
             http_response_code($this->cause->getCode());
         } else {
             http_response_code(500);
         }
         require Controller::getViewPath("ErrorView");
-        return null;
     }
 }

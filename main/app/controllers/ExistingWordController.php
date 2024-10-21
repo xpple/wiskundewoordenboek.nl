@@ -9,9 +9,7 @@ use app\util\Constants;
 use app\util\HttpException;
 
 class ExistingWordController extends SuccessController {
-    /**
-     * @var WordModel[] $recentlyAddedWords
-     */
+    /* @var WordModel[] */
     private readonly array $recentlyAddedWords;
 
     private readonly WordModel $wordModel;
@@ -34,16 +32,16 @@ class ExistingWordController extends SuccessController {
     }
 
     #[\Override]
-    public function loadAndDelegate(): ?Controller {
+    public function handle(): void {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 require Controller::getViewPath("ExistingWordView");
-                return null;
+                return;
             case 'POST':
                 $result = $this->handlePost();
                 header('Content-Type: application/json');
                 echo json_encode($result);
-                return null;
+                return;
             default:
                 throw HttpException::methodNotSupported("GET, POST");
         }
