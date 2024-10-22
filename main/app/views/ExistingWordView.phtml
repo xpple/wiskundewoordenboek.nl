@@ -87,6 +87,7 @@ HTML;
             <input id="email-input" name="email" type="email" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>">
             <button id="submit-button" type="submit">Indienen</button>
             <input name="meaning" value="<?= !$formal ? "standaard" : "formeel" ?>" type="hidden">
+            <input name="type" value="aanpassing" type="hidden">
         </form>
         <output id="make-changes-output" form="make-changes-form"></output>
     </section>

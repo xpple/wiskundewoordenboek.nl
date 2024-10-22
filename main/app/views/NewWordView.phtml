@@ -30,12 +30,12 @@ require Controller::getTemplatePath("header");
     <main id="main">
         <form id="create-page-form" method="post">
             <div id="title-container">
-                <h1 id="<?= htmlspecialchars($this->word) ?>"><input id="title-input" name="name" value="<?= htmlspecialchars($this->word) ?>" type="text" maxlength="256" required></h1>
+                <h1 id="<?= htmlspecialchars($this->word) ?>"><input id="title-input" name="name" value="<?= htmlspecialchars($this->word) ?>" type="text" maxlength="<?= Constants::DB_MAX_NAME_LENGTH ?>" required></h1>
                 <div id="meaning-option-div">
                     <label for="option-standard">Standaard</label>
-                    <input id="option-standard" name="meaning" value="standard" type="radio" checked>
+                    <input id="option-standard" name="meaning" value="standaard" type="radio" checked>
                     <label for="option-formal">Formeel</label>
-                    <input id="option-formal" name="meaning" value="formal" type="radio">
+                    <input id="option-formal" name="meaning" value="formeel" type="radio">
                 </div>
             </div>
             <div id="content-label-container">
@@ -52,6 +52,7 @@ require Controller::getTemplatePath("header");
             <label for="email-input">E-mailadres</label>
             <input id="email-input" name="email" type="email" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>">
             <button id="submit-button" type="submit">Indienen</button>
+            <input name="type" value="creatie" type="hidden">
         </form>
         <output id="create-page-output" form="create-page-form"></output>
     </main>

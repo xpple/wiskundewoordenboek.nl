@@ -30,9 +30,9 @@ require Controller::getTemplatePath("header");
     </p>
     <form id="message-form" method="post">
         <label for="name-input">Naam</label>
-        <input id="name-input" name="name" type="text" maxlength="256" required>
+        <input id="name-input" name="name" type="text" maxlength="<?= Constants::DB_MAX_NAME_LENGTH ?>" required>
         <label for="email-input">E-mail</label>
-        <input id="email-input" name="email" type="email" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>" required>
+        <input id="email-input" name="email" type="email" maxlength="<?= Constants::DB_MAX_EMAIL_LENGTH ?>" required>
         <label for="message-textarea">Bericht</label>
         <textarea id="message-textarea" name="message" cols="30" rows="10" maxlength="<?= Constants::DISCORD_EMBED_MAX_FIELD_VALUE ?>" required></textarea>
         <button id="submit-button" type="submit">Indienen</button>

@@ -180,4 +180,40 @@ readonly final class DatabaseHelper {
             throw DatabaseException::unknownError();
         }
     }
+
+    /**
+     * @throws DatabaseException
+     */
+    public function newWordSuggestion(string $name, string $sanitisedName, string $meaningOption, string $content, string $description, ?string $email): void {
+        try {
+            $statement = $this->conn->prepare(<<<SQL
+                INSERT INTO suggested_words (word_capitalised, suggestion_directory, word_meaning_option, suggestion_content, suggestion_description, suggestor_email)
+                VALUES (:name, CONCAT(:word_directory, '-', LPAD(FLOOR(RAND() * 99999999.99), 8, '0')), :meaning_option, :content, :description, :email);
+                SQL);
+            $result = $statement->execute(["name" => $name, "word_directory" => $sanitisedName, "meaning_option" => $meaningOption, "content" => $content, "description" => $description, "email" => $email]);
+            if ($result === false) {
+                throw DatabaseException::unknownError();
+            }
+        } catch (PDOException) {
+            throw DatabaseException::unknownError();
+        }
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    public function newWordChange(WordModel $wordModel, string $meaningOption, string $changes, string $description, ?string $email): void {
+        try {
+            $statement = $this->conn->prepare(<<<SQL
+                INSERT INTO word_changes (word_id, change_directory, word_meaning_option, change_content, change_description, changer_email)
+                VALUES (UNHEX(:word_id), CONCAT(:word_directory, '-', LPAD(FLOOR(RAND() * 99999999.99), 8, '0')), :meaning_option, :changes, :description, :email)
+                SQL);
+            $result = $statement->execute(["word_id" => $wordModel->wordId, "word_directory" => $wordModel->wordDirectory, "meaning_option" => $meaningOption, "changes" => $changes, "description" => $description, "email" => $email]);
+            if ($result === false) {
+                throw DatabaseException::unknownError();
+            }
+        } catch (PDOException) {
+            throw DatabaseException::unknownError();
+        }
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\util\ApiException;
+use app\util\ApiHelper;
 use app\util\Constants;
 use app\util\HttpException;
 
@@ -30,8 +32,8 @@ class ContactController extends SuccessController {
         if ($name === null) {
             return (object) ["success" => false, "errorMessage" => "Naam mag niet leeg zijn!"];
         }
-        if (strlen($name) > 256) {
-            return (object) ["success" => false, "errorMessage" => "Naam mag niet langer dan 256 karakters zijn!"];
+        if (strlen($name) > Constants::DB_MAX_NAME_LENGTH) {
+            return (object) ["success" => false, "errorMessage" => "Naam mag niet langer dan " . Constants::DB_MAX_NAME_LENGTH . " karakters zijn!"];
         }
         $message = $_POST["message"] ?? null ?: null;
         if ($message == null) {
@@ -45,14 +47,10 @@ class ContactController extends SuccessController {
             return (object) ["success" => false, "errorMessage" => "E-mailadres mag niet leeg zijn!"];
         }
 
-        $curl = curl_init();
         require Controller::getRoot() . "/app/private-webhook.php";
         /* @var string $webhook */
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $webhook,
-            CURLOPT_POST => true,
-            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-            CURLOPT_POSTFIELDS => json_encode([
+        try {
+            ApiHelper::postJson($webhook, [
                 "username" => "Contactformulier inzending",
                 "embeds" => [
                     [
@@ -62,21 +60,19 @@ class ContactController extends SuccessController {
                         "fields" => [
                             [
                                 "name" => "Bericht",
-                                "value" => "$message"
+                                "value" => $message
                             ],
                             [
                                 "name" => "E-mail",
-                                "value" => "$email"
+                                "value" => $email
                             ]
                         ]
                     ]
                 ],
-            ]),
-        ]);
-        $response = curl_exec($curl);
-        if ($response === true) {
-            return (object) ["success" => true];
+            ]);
+        } catch (ApiException) {
+            return (object) ["success" => false, "errorMessage" => "Er ging achter de schermen iets mis!"];
         }
-        return (object) ["success" => false, "errorMessage" => "Er ging achter de schermen iets mis!"];
+        return (object) ["success" => true];
     }
 }

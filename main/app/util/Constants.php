@@ -12,6 +12,10 @@ final class Constants {
      */
     const int DISCORD_EMBED_MAX_FIELD_VALUE = 1024;
 
+    const int DB_MAX_NAME_LENGTH = 256;
+
+    const int DB_MAX_EMAIL_LENGTH = 256;
+
     public static function isDevEnv(): bool {
         return getenv("WW_ENVIRONMENT") === "DEV";
     }
