@@ -14,6 +14,7 @@ final class ApiHelper {
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
         ]);
         $response = curl_exec($curl);
         if (curl_errno($curl) !== 0) {
@@ -39,6 +40,7 @@ final class ApiHelper {
             curl_setopt_array($curl, [
                 CURLOPT_URL => $url,
                 CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_POST => true,
                 CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
                 CURLOPT_POSTFIELDS => json_encode($object, JSON_THROW_ON_ERROR),
