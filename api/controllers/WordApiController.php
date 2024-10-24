@@ -125,7 +125,7 @@ class WordApiController extends SuccessController {
                         ],
                         [
                             "name" => "E-mail",
-                            "value" => $email
+                            "value" => $email ? "`$email`" : "Geen e-mailadres opgegeven"
                         ]
                     ]
                 ]
