@@ -52,6 +52,9 @@ final class ApiHelper {
         if (curl_errno($curl) !== 0) {
             throw ApiException::unknownError();
         }
+        if (strlen($response) === 0) {
+            return [];
+        }
         try {
             $json = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
         } catch (\JsonException) {
