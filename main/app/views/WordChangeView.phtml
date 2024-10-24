@@ -1,0 +1,73 @@
+<?php
+
+use app\controllers\Controller;
+use app\controllers\WordChangeController;
+use app\views\ViewSettings;
+
+global $f;
+
+/* @var WordChangeController $this */
+
+$settings = new ViewSettings(
+    title: "Aanpassing '" . htmlspecialchars($this->changeModel->wordModel->wordCapitalised) . "' | Wiskunde Woordenboek",
+    stylesheets: ["templates/header", "templates/footer", "templates/word-list", "word-change-view"],
+    scripts: ["heading-anchors"],
+    mathsEnabled: true,
+    markdownEnabled: true,
+);
+?>
+<!DOCTYPE html>
+<html lang="nl">
+<?php
+require Controller::getTemplatePath("head");
+?>
+<body>
+<?php
+require Controller::getTemplatePath("header");
+?>
+<div id="container">
+    <main id="main">
+        <h1 id="aanpassingen-aan-<?= htmlspecialchars($this->changeModel->wordModel->wordDirectory) ?>">Aanpassingen aan <a href="/woord/<?= htmlspecialchars(urlencode($this->changeModel->wordModel->wordDirectory)) ?>" target="_blank"><?= htmlspecialchars($this->changeModel->wordModel->wordCapitalised) ?></a></h1>
+        <p>
+            <b>Beschrijving</b>: <?= htmlspecialchars($this->changeModel->description) ?>
+        </p>
+        <hr>
+        <p>
+            <b>Suggestiegever</b>: <?= $this->changeModel->email ? '<code class="inline">' . htmlspecialchars($this->changeModel->email) . '</code>' : "<i>Geen e-mailadres opgegeven</i>" ?>
+        </p>
+        <hr>
+        <div id="change-div" class="text render-tex render-markdown"><?= htmlspecialchars($this->changeModel->content) ?></div>
+    </main>
+    <aside id="aside-container">
+        <div id="title-container">
+            <h2 id="<?= htmlspecialchars($this->changeModel->wordModel->wordDirectory) ?>"><?= htmlspecialchars($this->changeModel->wordModel->wordCapitalised) ?></h2>
+            <?php
+            $formal = ($this->changeModel->meaningOption) === "formeel";
+            ?>
+            <form id="meaning-option-form">
+                <label for="option-standard">Standaard</label>
+                <input id="option-standard" name="betekenis" value="standaard" type="radio" <?= !$formal ? "checked" : "disabled" ?>>
+                <label for="option-formal">Formeel</label>
+                <input id="option-formal" name="betekenis" value="formeel" type="radio" <?= $formal ? "checked" : "disabled" ?>>
+            </form>
+        </div>
+        <div id="meaning-div" class="text render-tex render-markdown"><?= htmlspecialchars($formal ? $this->changeModel->wordModel->formalMeaning : $this->changeModel->wordModel->meaning) ?></div>
+        <div id="recently-added-container">
+            <h2 id="recent-toegevoegd">Recent toegevoegd</h2>
+            <ol class="word-list">
+                <?php
+                foreach($this->recentlyAddedWords as $wordModel) {
+                    echo <<<HTML
+            <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
+HTML;
+                }
+                ?>
+            </ol>
+        </div>
+    </aside>
+</div>
+<?php
+require Controller::getTemplatePath("footer");
+?>
+</body>
+</html>

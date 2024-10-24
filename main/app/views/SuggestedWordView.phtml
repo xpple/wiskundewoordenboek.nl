@@ -1,0 +1,69 @@
+<?php
+
+use app\controllers\Controller;
+use app\controllers\SuggestedWordController;
+use app\views\ViewSettings;
+
+global $f;
+
+/* @var SuggestedWordController $this */
+
+$settings = new ViewSettings(
+    title: "Suggestie '" . htmlspecialchars($this->wordModel->wordCapitalised) . "' | Wiskunde Woordenboek",
+    stylesheets: ["templates/header", "templates/footer", "templates/word-list", "suggested-word-view"],
+    scripts: ["heading-anchors"],
+    mathsEnabled: true,
+    markdownEnabled: true,
+);
+?>
+<!DOCTYPE html>
+<html lang="nl">
+<?php
+require Controller::getTemplatePath("head");
+?>
+<body>
+<?php
+require Controller::getTemplatePath("header");
+?>
+<div id="container">
+    <main id="main">
+        <div id="title-container">
+            <h1 id="<?= htmlspecialchars($this->wordModel->suggestionDirectory) ?>"><?= htmlspecialchars($this->wordModel->wordCapitalised) ?></h1>
+<?php
+            $formal = $this->wordModel->meaningOption === "formeel";
+            ?>
+            <form id="meaning-option-form">
+                <label for="option-standard">Standaard</label>
+                <input id="option-standard" name="betekenis" value="standaard" type="radio" <?= !$formal ? "checked" : "disabled" ?>>
+                <label for="option-formal">Formeel</label>
+                <input id="option-formal" name="betekenis" value="formeel" type="radio" <?= $formal ? "checked" : "disabled" ?>>
+            </form>
+        </div>
+        <p>
+            <b>Beschrijving</b>: <?= htmlspecialchars($this->wordModel->description) ?>
+        </p>
+        <hr>
+        <p>
+            <b>Suggestiegever</b>: <?= $this->wordModel->email ? '<code class="inline">' . htmlspecialchars($this->wordModel->email) . '</code>' : "<i>Geen e-mailadres opgegeven</i>" ?>
+        </p>
+        <hr>
+        <div id="meaning-div" class="text render-tex render-markdown"><?= htmlspecialchars($this->wordModel->content) ?></div>
+    </main>
+    <aside id="recently-added-container">
+        <h2 id="recent-toegevoegd">Recent toegevoegd</h2>
+        <ol class="word-list">
+<?php
+        foreach($this->recentlyAddedWords as $wordModel) {
+            echo <<<HTML
+            <li><a href="/woord/{$f(htmlspecialchars(urlencode($wordModel->wordDirectory)))}/">{$f(htmlspecialchars($wordModel->wordCapitalised))}</a></li>\n
+HTML;
+            }
+        ?>
+        </ol>
+    </aside>
+</div>
+<?php
+require Controller::getTemplatePath("footer");
+?>
+</body>
+</html>

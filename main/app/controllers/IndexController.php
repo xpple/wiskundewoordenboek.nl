@@ -15,9 +15,11 @@ class IndexController extends SuccessController {
     private readonly array $recentlyAddedWords;
 
     public function __construct() {
+        $this->route("aanpassing", (new WordChangeController())->handle(...));
         $this->route("contact", (new ContactController())->handle(...));
         $this->route("letter", (new LetterController())->handle(...));
         $this->route("over-ons", (new AboutUsController())->handle(...));
+        $this->route("suggestie", (new SuggestedWordController())->handle(...));
         $this->route("woord", (new WordController())->handle(...));
         $this->route("zoek", (new SearchController())->handle(...));
     }

@@ -89,6 +89,14 @@
     font-weight: initial;
 }
 
+#content-div img {
+    max-width: 100%;
+}
+
+mjx-container[jax="SVG"] {
+    overflow: auto;
+}
+
 #recently-added-container {
     grid-column: 2 / 3;
 }

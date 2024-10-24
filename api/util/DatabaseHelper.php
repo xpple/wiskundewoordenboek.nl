@@ -3,6 +3,8 @@
 namespace api\util;
 
 use app\controllers\Controller;
+use app\models\SuggestedWordModel;
+use app\models\WordChangeModel;
 use app\models\WordModel;
 use app\util\DatabaseException;
 use PDO;
@@ -200,6 +202,12 @@ readonly final class DatabaseHelper {
     }
 
     /**
+     * @param WordModel $wordModel
+     * @param string $meaningOption
+     * @param string $changes
+     * @param string $description
+     * @param string|null $email
+     * @return void
      * @throws DatabaseException
      */
     public function newWordChange(WordModel $wordModel, string $meaningOption, string $changes, string $description, ?string $email): void {
@@ -212,6 +220,56 @@ readonly final class DatabaseHelper {
             if ($result === false) {
                 throw DatabaseException::unknownError();
             }
+        } catch (PDOException) {
+            throw DatabaseException::unknownError();
+        }
+    }
+
+    /**
+     * @param string $suggestion
+     * @return SuggestedWordModel|null
+     *
+     * @throws DatabaseException
+     */
+    public function getWordSuggestion(string $suggestion): ?SuggestedWordModel {
+        try {
+            $statement = $this->conn->prepare(<<<SQL
+                SELECT HEX(suggestion_id) as suggestion_id, suggestion_directory, word_capitalised, word_meaning_option, suggestion_content, suggestion_description, suggestor_email
+                FROM suggested_words
+                WHERE suggestion_directory = :suggestion;
+                SQL);
+            $statement->execute(["suggestion" => $suggestion]);
+            $results = $statement->fetchAll(PDO::FETCH_FUNC, static fn(...$args) => new SuggestedWordModel(...$args));
+            if (count($results) !== 1) {
+                return null;
+            }
+            return $results[0];
+        } catch (PDOException) {
+            throw DatabaseException::unknownError();
+        }
+    }
+
+    /**
+     * @param string $change
+     * @return WordChangeModel|null
+     *
+     * @throws DatabaseException
+     */
+    public function getWordChange(string $change): ?WordChangeModel {
+        try {
+            $statement = $this->conn->prepare(<<<SQL
+                SELECT HEX(change_id) as change_id, HEX(words.word_id) as word_id, words.word_directory, words.word_capitalised, words.word_meaning, words.word_formal_meaning, change_directory, word_meaning_option, change_content, change_description, changer_email
+                FROM word_changes
+                INNER JOIN words
+                ON word_changes.word_id = words.word_id
+                WHERE change_directory = :change;
+                SQL);
+            $statement->execute(["change" => $change]);
+            $results = $statement->fetchAll(PDO::FETCH_FUNC, WordChangeModel::wrapper(...));
+            if (count($results) !== 1) {
+                return null;
+            }
+            return $results[0];
         } catch (PDOException) {
             throw DatabaseException::unknownError();
         }

@@ -7,9 +7,11 @@ use app\util\HttpException;
 
 class ApiController extends SuccessController {
     public function __construct() {
+        $this->route("aanpassing", (new ChangeApiController())->handle(...));
         $this->route("letter", (new LetterApiController())->handle(...));
         $this->route("random", (new RandomApiController())->handle(...));
         $this->route("recent", (new RecentApiController())->handle(...));
+        $this->route("suggestie", (new SuggestionApiController())->handle(...));
         $this->route("woord", (new WordApiController())->handle(...));
         $this->route("zoek", (new SearchApiController())->handle(...));
     }
